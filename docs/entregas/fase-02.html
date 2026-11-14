@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Fase 2 · Procesos y Reglas del Negocio — Atypico Studio</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 15mm 18mm 15mm;
+    @bottom-center {
+      content: counter(page);
+    }
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1a1a1a;
+    line-height: 1.5;
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+  }
+  h1 {
+    font-size: 18pt;
+    color: #0d0d0d;
+    border-bottom: 2px solid #E35336;
+    padding-bottom: 6px;
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: 13pt;
+    color: #111;
+    border-bottom: 1.5px solid #E35336;
+    padding-bottom: 4px;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  h3 {
+    font-size: 11pt;
+    color: #222;
+    margin-top: 14px;
+    margin-bottom: 5px;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  h4 {
+    font-size: 10pt;
+    color: #444;
+    margin-top: 10px;
+    margin-bottom: 4px;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  p {
+    margin: 0 0 8px 0;
+  }
+  ul, ol {
+    margin: 0 0 10px 18px;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 3px;
+  }
+  code {
+    background-color: #f3f3f1;
+    padding: 1.5px 4.5px;
+    border-radius: 3px;
+    font-family: "Cascadia Code", Consolas, "Courier New", monospace;
+    font-size: 9pt;
+    color: #c7254e;
+  }
+  pre {
+    background-color: #282c34;
+    color: #abb2bf;
+    padding: 10px 14px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 8.5pt;
+    line-height: 1.4;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin: 10px 0;
+  }
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+  }
+  blockquote {
+    border-left: 4px solid #E35336;
+    background: #fbfbfb;
+    margin: 10px 0;
+    padding: 8px 12px;
+    font-style: italic;
+    color: #333;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 8.5pt;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  table.data-table th, table.data-table td {
+    border: 1px solid #dcdcdc;
+    padding: 6px 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  table.data-table th {
+    background-color: #f4f4f4;
+    font-weight: 600;
+    color: #111;
+  }
+  table.data-table tr:nth-child(even) td {
+    background-color: #fafafa;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 16px 0;
+  }
+  .page-break {
+    page-break-before: always;
+    break-before: always;
+  }
+</style>
+</head>
+<body>
+<h1>Proyecto · Fase 2: Procesos y Reglas del Negocio</h1>
+<p><strong>Atypico Studio — Showcase E-commerce de Moda Urbana</strong></p>
+<hr/>
+<h2>1. Identificación del proyecto</h2>
+<ul>
+<li><strong>Nombre del producto:</strong> Atypico Showcase Store (Tienda E-commerce Insignia de Moda Urbana).</li>
+<li><strong>Estudio creador:</strong> Atypico Studio.</li>
+<li><strong>Autor / Estudiante:</strong> Fernando.</li>
+<li><strong>Cohorte:</strong> Bootcamp de Desarrollo Frontend & React.</li>
+<li><strong>Entrega:</strong> Fase 2 · Procesos y reglas del negocio (Documento acumulativo).</li>
+<li><strong>Fecha:</strong> 8 de noviembre de 2026.</li>
+<li><strong>Versión del documento:</strong> 2.0.0.</li>
+</ul>
+<hr/>
+<h2>2. Problema y contexto</h2>
+<p>En el ecosistema de marcas independientes de moda urbana (<em>streetwear</em>), la gran mayoría de marcas emergentes inician comercializando a través de redes sociales (Instagram, TikTok) o canales de mensajería (WhatsApp).</p>
+<h3>La dificultad persistente</h3>
+<ol>
+<li><strong>Lentitud y fricción en la atención:</strong> Los clientes deben preguntar por disponibilidad de prendas, tallas y colores mediante mensajes directos, esperando horas para recibir respuesta manual.</li>
+<li><strong>Caída de ventas y abandono:</strong> La falta de un catálogo interactivo con stock en tiempo real y la solicitud manual de transferencias bancarias provoca que muchos compradores desistan del proceso de compra.</li>
+<li><strong>Plantillas web genéricas y lentas:</strong> Cuando los negocios intentan digitalizarse con plantillas predeterminadas de agencias tradicionales, obtienen sitios web pesados, impersonales y difíciles de navegar que no reflejan la identidad de la marca.</li>
+</ol>
+<h3>Oportunidad de Atypico Studio</h3>
+<p>Atypico Studio desarrolla este e-commerce de demostración como vitrina técnica e insignia para evidenciar cómo una arquitectura web moderna, no genérica y optimizada para conversión puede automatizar la captación de pedidos, transparentar inventarios y conectar la orden directamente con WhatsApp para un cierre ágil de la venta.</p>
+<hr/>
+<h2>3. Usuarios y objetivos</h2>
+<ul>
+<li><strong>Actor principal:</strong> Comprador de moda urbana.</li>
+<ul>
+<li><strong>Perfil:</strong> Persona interesada en prendas streetwear (camisetas oversize, pantalones cargo, accesorios) que busca una experiencia visual rápida, clara y sin fricciones técnicas.</li>
+<li><strong>Objetivo:</strong> Explorar la colección disponible, filtrar prendas según su talla y estilo, revisar detalles de materiales y medidas, y confirmar un pedido con cálculo exacto de envío e instrucciones claras de pago.</li>
+</ul>
+<li><strong>Actor secundario (Receptor externo):</strong> Asesor de ventas / Administrador de la tienda.</li>
+<ul>
+<li><strong>Interacción:</strong> No accede a un panel de administración en la aplicación web en esta fase; recibe el pedido estructurado y el comprobante de transferencia bancaria directamente a través de WhatsApp para coordinar el despacho.</li>
+</ul>
+</ul>
+<hr/>
+<h2>4. Descripción general de la solución</h2>
+<p>La solución consiste en una aplicación web e-commerce de alto rendimiento construida a medida para Atypico Studio, que representa una tienda de moda urbana con las siguientes capacidades funcionales:</p>
+<h3>Recorrido de principio a fin</h3>
+<ol>
+<li><strong>Descubrimiento y catálogo:</strong> El comprador ingresa a la tienda y visualiza la colección destacada. Puede filtrar inmediatamente por categorías clave (<em>Camisetas Oversize</em>, <em>Pantalones Cargo</em>, <em>Accesorios</em>) y por talla (S, M, L, XL), con retroalimentación visual de stock en tiempo real.</li>
+<li><strong>Selección y detalle:</strong> Al seleccionar una prenda, consulta la ficha técnica (composición textil, corte boxy fit, tabla de medidas y fotos) y selecciona su combinación de talla y color. Al presionar "Añadir a la bolsa", la prenda se suma al carrito de compras con una notificación flotante (toast) y actualización instantánea del contador superior.</li>
+<li><strong>Revisión de bolsa:</strong> En la vista del carrito, el comprador revisa los ítems agregados, modifica cantidades con controles (+/-) o elimina prendas. Si intenta reducir de 1 a 0 unidades, el sistema despliega una confirmación dialogada preventiva. El subtotal se liquida de inmediato sin flete.</li>
+<li><strong>Checkout y cierre por WhatsApp:</strong> El comprador completa sus datos de entrega. Al seleccionar su ciudad, el sistema calcula de forma reactiva el costo de envío ($3.50 local / $5.00 nacional) y liquida el total. Al confirmar la orden, se genera un identificador único (ej. <code>#ATY-8421</code>), se presentan los datos bancarios y se habilita un botón que abre WhatsApp con el mensaje pre-estructurado para enviar el comprobante de transferencia y procesar el despacho.</li>
+</ol>
+<hr/>
+<h2>5. Alcance inicial y exclusiones</h2>
+<h3>Capacidades comprometidas en la versión inicial</h3>
+<ul>
+<li>Catálogo dinámico con filtrado reactivo por categorías y tallas en memoria.</li>
+<li>Bloqueo visual e interactivo de opciones sin stock para evitar búsquedas sin resultados.</li>
+<li>Ficha de detalle de producto con selección de variantes de talla y color.</li>
+<li>Carrito de compras con controles de incremento, decremento y confirmación previa de eliminación, cálculo reactivo de subtotales y estado vacío guiado.</li>
+<li>Formulario de checkout con validación de campos obligatorios y liquidación de flete según ciudad local o nacional.</li>
+<li>Generador de código de orden único <code>#ATY-XXXX</code> y formateo automático de mensaje de WhatsApp con resumen del pedido y datos bancarios.</li>
+</ul>
+<h3>Exclusiones explícitas y su justificación</h3>
+<ol>
+<li><strong>Pasarelas de pago bancarias automatizadas (Stripe / Tarjetas de crédito):</strong></li>
+<ul>
+<li><em>Justificación:</em> Se excluyen para evitar dependencias de backends transaccionales complejos en esta fase formativa y porque refleja el modelo real de venta directa por transferencia y WhatsApp de marcas independientes de moda urbana.</li>
+</ul>
+<li><strong>Panel de administración y autenticación de usuarios:</strong></li>
+<ul>
+<li><em>Justificación:</em> La consigna solicita explícitamente no inventar logins ni roles administrativos que no formen parte del valor central para el comprador. El negocio gestiona la orden recibida mediante el comprobante enviado a su canal de atención.</li>
+</ul>
+<li><strong>Gestión de inventario multi-bodega:</strong></li>
+<ul>
+<li><em>Justificación:</em> El stock se maneja a nivel de catálogo de frontend para validar la reactividad y las reglas de negocio de la interfaz.</li>
+</ul>
+</ol>
+<hr/>
+<h2>6. Secciones o pantallas previstas</h2>
+<table class="data-table">
+<thead><tr><th>Pantalla / Sección</th><th>Propósito</th><th>Información que muestra</th><th>Acciones que permite</th><th>Casos de uso relacionados</th></tr></thead>
+<tbody>
+<tr><td><strong>1. Catálogo / Colección</strong></td><td>Presentar todas las prendas de la marca y permitir su filtrado ágil.</td><td>Cuadrícula de productos, imagen destacada, categoría, precio, selector de categorías y botones de tallas con disponibilidad.</td><td>Filtrar por categoría, filtrar por talla, limpiar filtros y seleccionar una prenda para ver su detalle.</td><td>CU-01 / SPEC-01</td></tr>
+<tr><td><strong>2. Ficha de Detalle</strong></td><td>Brindar la información técnica completa de una prenda seleccionada.</td><td>Galería de fotos, nombre, precio, descripción de materiales y corte streetwear, selector de talla y color, estado de stock.</td><td>Elegir talla y color, pulsar "Añadir a la bolsa" y volver a la colección.</td><td>CU-02 / SPEC-02</td></tr>
+<tr><td><strong>3. Carrito de Compras</strong></td><td>Auditar y ajustar los artículos antes de formalizar la compra.</td><td>Lista de prendas añadidas (talla, color, precio unitario, subtotal), controles (+/-), botón de eliminar, subtotal acumulado y aviso de flete diferido.</td><td>Aumentar/disminuir unidades, confirmar eliminación en diálogo, vaciar bolsa y pulsar "Continuar al checkout".</td><td>CU-03 / SPEC-03</td></tr>
+<tr><td><strong>4. Checkout y Entrega</strong></td><td>Recopilar información de envío y calcular el costo de transporte.</td><td>Formulario de datos (Nombre, Teléfono, Ciudad, Dirección), resumen de orden y cálculo reactivo del total según ciudad.</td><td>Ingresar datos de contacto, seleccionar ciudad local o nacional, ver cálculo de envío y confirmar pedido.</td><td>CU-04 / SPEC-04</td></tr>
+<tr><td><strong>5. Confirmación de Orden</strong></td><td>Entregar el comprobante formal del pedido y habilitar el canal de pago.</td><td>Código de orden (<code>#ATY-XXXX</code>), total a transferir, resumen de prendas, datos de cuenta bancaria y botón de WhatsApp.</td><td>Copiar datos bancarios y presionar "Enviar comprobante por WhatsApp".</td><td>CU-04 / SPEC-04</td></tr>
+</tbody></table>
+<hr/>
+<h2>7. Casos de uso de la versión inicial</h2>
+<h3>Catálogo de casos de uso aprobados en AHK 3.0.0</h3>
+<table class="data-table">
+<thead><tr><th>Identificador AHK</th><th>Nombre</th><th>Actor</th><th>Objetivo</th><th>Archivo fuente gestionado</th></tr></thead>
+<tbody>
+<tr><td><code>cu-01-explorar-catalogo-y-filtrar</code></td><td>Explorar catálogo y filtrar prendas por categoría y talla</td><td>Comprador</td><td>Encontrar prendas disponibles por estilo y talla</td><td><a href="../use-cases/cu-01-explorar-catalogo-y-filtrar.md" style="color: #E35336; text-decoration: none;"><code>docs/use-cases/cu-01-explorar-catalogo-y-filtrar.md</code></a></td></tr>
+<tr><td><code>cu-02-detalle-prenda-y-variantes</code></td><td>Consultar detalle de prenda y seleccionar variantes</td><td>Comprador</td><td>Conocer ficha técnica y elegir talla/color</td><td><a href="../use-cases/cu-02-detalle-prenda-y-variantes.md" style="color: #E35336; text-decoration: none;"><code>docs/use-cases/cu-02-detalle-prenda-y-variantes.md</code></a></td></tr>
+<tr><td><code>cu-03-gestionar-carrito-de-compras</code></td><td>Gestionar el carrito de compras</td><td>Comprador</td><td>Ajustar prendas y revisar subtotal consolidado</td><td><a href="../use-cases/cu-03-gestionar-carrito-de-compras.md" style="color: #E35336; text-decoration: none;"><code>docs/use-cases/cu-03-gestionar-carrito-de-compras.md</code></a></td></tr>
+<tr><td><code>cu-04-checkout-y-confirmacion-pedido</code></td><td>Completar checkout y confirmación de pedido</td><td>Comprador</td><td>Formalizar orden y enviar comprobante a WhatsApp</td><td><a href="../use-cases/cu-04-checkout-y-confirmacion-pedido.md" style="color: #E35336; text-decoration: none;"><code>docs/use-cases/cu-04-checkout-y-confirmacion-pedido.md</code></a></td></tr>
+</tbody></table>
+<hr/>
+<h3>Fichas consolidadas de casos de uso</h3>
+<h4>Ficha CU-01: Explorar catálogo y filtrar prendas por categoría y talla</h4>
+<ol>
+<li><strong>Identificador y nombre:</strong> <code>cu-01-explorar-catalogo-y-filtrar</code> — Explorar catálogo y filtrar prendas por categoría y talla.</li>
+<li><strong>Actor principal y objetivo:</strong> Comprador de moda urbana. Busca visualizar prendas disponibles filtradas por categoría y talla sin demoras.</li>
+<li><strong>Situación que lo inicia y condiciones previas:</strong> El usuario ingresa a la tienda online. El catálogo contiene prendas cargadas en las categorías Camisetas Oversize, Pantalones Cargo y Accesorios.</li>
+<li><strong>Pasos del recorrido principal:</strong></li>
+<ul>
+<li>El comprador accede al catálogo; el producto despliega la cuadrícula con las prendas disponibles.</li>
+<li>El comprador pulsa sobre una categoría específica (<em>"Camisetas Oversize"</em>); el producto actualiza la vista mostrando únicamente prendas de esa categoría.</li>
+<li>El comprador selecciona un filtro de talla (<em>"L"</em>); el producto filtra las prendas con stock en L y deshabilita los botones de tallas agotadas (Regla <code>RN-02</code>).</li>
+<li>El comprador selecciona una prenda para ver su detalle.</li>
+</ul>
+<li><strong>Alternativas, errores y restricciones:</strong></li>
+<ul>
+<li><em>A1 (Deselección):</em> Al pulsar nuevamente sobre la categoría activa o en "Ver todos", el producto restaura la vista completa (<code>RN-03</code>).</li>
+<li><em>A2 (Prevención de vacíos):</em> Las tallas sin inventario aparecen en estado deshabilitado para evitar pantallas sin resultados (<code>RN-02</code>).</li>
+<li><em>RN-01:</em> Solo se reconocen las categorías pactadas: Camisetas Oversize, Pantalones Cargo y Accesorios.</li>
+</ul>
+<li><strong>Resultado observable:</strong> Cuadrícula de productos filtrada en tiempo real según categoría y talla con precios y disponibilidad visible.</li>
+<li><strong>Criterios de aceptación:</strong> <code>CA-01</code>, <code>CA-02</code>, <code>CA-03</code>, <code>CA-04</code>.</li>
+</ol>
+<h4>Ficha CU-02: Consultar detalle de prenda y seleccionar variantes</h4>
+<ol>
+<li><strong>Identificador y nombre:</strong> <code>cu-02-detalle-prenda-y-variantes</code> — Consultar detalle de prenda y seleccionar variantes.</li>
+<li><strong>Actor principal y objetivo:</strong> Comprador de moda urbana. Conocer en detalle la prenda (materiales, corte, fotos), elegir talla/color y añadirla a la bolsa.</li>
+<li><strong>Situación que lo inicia y condiciones previas:</strong> El comprador hace clic sobre una tarjeta de producto en el catálogo. La prenda existe y cuenta con al menos una variante activa.</li>
+<li><strong>Pasos del recorrido principal:</strong></li>
+<ul>
+<li>El comprador hace clic en una prenda; el producto presenta la ficha técnica con fotos, categoría, precio, descripción de materiales y selectores de talla y color.</li>
+<li>El comprador selecciona talla (ej. "M") y color disponible; el producto actualiza la disponibilidad de la variante.</li>
+<li>El comprador pulsa "Añadir a la bolsa"; el producto suma el artículo al carrito, incrementa el contador numérico en la barra superior (+1) y muestra una notificación flotante (toast) de confirmación temporal permaneciendo en la vista (<code>RN-05</code>).</li>
+</ul>
+<li><strong>Alternativas, errores y restricciones:</strong></li>
+<ul>
+<li><em>A1 (Talla agotada):</em> Si la talla elegida no tiene existencias, el botón principal cambia a "Agotado en esta talla" y se bloquea (<code>RN-06</code>).</li>
+<li><em>A2 (Retorno):</em> El comprador puede pulsar "← Volver a la colección" conservando sus filtros anteriores.</li>
+<li><em>RN-04:</em> Selección obligatoria de talla antes de permitir adición a bolsa.</li>
+</ul>
+<li><strong>Resultado observable:</strong> Prenda incorporada a la bolsa con actualización inmediata del contador de la barra superior y toast visible por 3 segundos.</li>
+<li><strong>Criterios de aceptación:</strong> <code>CA-05</code>, <code>CA-06</code>, <code>CA-07</code>, <code>CA-08</code>.</li>
+</ol>
+<h4>Ficha CU-03: Gestionar el carrito de compras</h4>
+<ol>
+<li><strong>Identificador y nombre:</strong> <code>cu-03-gestionar-carrito-de-compras</code> — Gestionar el carrito de compras.</li>
+<li><strong>Actor principal y objetivo:</strong> Comprador de moda urbana. Revisar artículos en la bolsa, modificar cantidades, eliminar prendas y verificar el subtotal antes de pagar.</li>
+<li><strong>Situación que lo inicia y condiciones previas:</strong> El comprador pulsa el ícono de la bolsa en la barra superior.</li>
+<li><strong>Pasos del recorrido principal:</strong></li>
+<ul>
+<li>El comprador abre el carrito; el producto lista las prendas agregadas con miniatura, nombre, talla, precio unitario, controles de cantidad (+/-) y subtotal acumulado.</li>
+<li>El comprador modifica cantidades con (+) o (-); el producto actualiza la cantidad de la fila y recalcula el subtotal general en tiempo real.</li>
+<li>El comprador verifica el subtotal y observa el aviso de que el envío se calcula en el siguiente paso (<code>RN-07</code>).</li>
+<li>El comprador pulsa "Continuar al checkout"; el producto redirige al formulario de checkout conservando los montos.</li>
+</ul>
+<li><strong>Alternativas, errores y restricciones:</strong></li>
+<ul>
+<li><em>A1 (Bolsa vacía):</em> Si no hay artículos, muestra "Tu bolsa está vacía" con botón para volver al catálogo y bloquea el botón de checkout (<code>RN-10</code>).</li>
+<li><em>A2 (Reducción a cero dialogada):</em> Si el usuario pulsa (-) con cantidad en 1, se despliega confirmación modal previa (<code>RN-08</code>).</li>
+<li><em>A3 (Límite de stock):</em> Si se alcanza el stock máximo de una variante, el botón (+) se deshabilita con aviso de límite alcanzado (<code>RN-09</code>).</li>
+</ul>
+<li><strong>Resultado observable:</strong> Carrito con lista detallada por prenda y talla, controles operativos de modificación y subtotal exacto.</li>
+<li><strong>Criterios de aceptación:</strong> <code>CA-09</code>, <code>CA-10</code>, <code>CA-11</code>, <code>CA-12</code>, <code>CA-13</code>.</li>
+</ol>
+<h4>Ficha CU-04: Completar checkout y confirmación de pedido</h4>
+<ol>
+<li><strong>Identificador y nombre:</strong> <code>cu-04-checkout-y-confirmacion-pedido</code> — Completar checkout y confirmación de pedido.</li>
+<li><strong>Actor principal y objetivo:</strong> Comprador de moda urbana. Formalizar datos de envío, conocer el flete según ciudad, generar código de orden y enviar comprobante a WhatsApp.</li>
+<li><strong>Situación que lo inicia y condiciones previas:</strong> El comprador pulsa "Continuar al checkout" con al menos un artículo en la bolsa. La tienda tiene definidos sus datos bancarios y número de WhatsApp.</li>
+<li><strong>Pasos del recorrido principal:</strong></li>
+<ul>
+<li>El comprador accede al formulario de checkout; el producto despliega campos para Nombre, Teléfono/WhatsApp, Ciudad y Dirección.</li>
+<li>El comprador completa sus datos y selecciona su ciudad; el producto calcula el flete en tiempo real ($3.50 local / $5.00 nacional) y liquida el total definitivo (<code>RN-11</code>).</li>
+<li>El comprador pulsa "Confirmar pedido y pagar por transferencia"; el producto valida campos (<code>RN-12</code>), genera un código de orden único <code>#ATY-XXXX</code> (<code>RN-13</code>), registra la orden y vacía el carrito (<code>RN-14</code>).</li>
+<li>El producto presenta la pantalla de confirmación con código de orden, total liquidado, datos bancarios para transferencia y botón "Enviar comprobante por WhatsApp".</li>
+<li>El comprador pulsa el botón; el producto abre WhatsApp con un mensaje pre-cargado conteniendo el número de orden, monto y solicitud de despacho (<code>RN-15</code>).</li>
+</ul>
+<li><strong>Alternativas, errores y restricciones:</strong></li>
+<ul>
+<li><em>A1 (Campos incompletos):</em> Si faltan campos requeridos, se resaltan en rojo con avisos y no se procesa la orden (<code>RN-12</code>).</li>
+<li><em>A2 (Acceso indebido):</em> Si se accede al checkout sin artículos en la bolsa, se redirige de inmediato al catálogo.</li>
+<li><em>RN-16:</em> No se solicitan datos de tarjetas bancarias en la web.</li>
+</ul>
+<li><strong>Resultado observable:</strong> Pantalla de pedido confirmado con código único, datos bancarios claros y enlace a WhatsApp con mensaje automático estructurado.</li>
+<li><strong>Criterios de aceptación:</strong> <code>CA-14</code>, <code>CA-15</code>, <code>CA-16</code>, <code>CA-17</code>, <code>CA-18</code>.</li>
+</ol>
+<hr/>
+<h2>8. Decisiones y preguntas pendientes</h2>
+<h3>Decisiones confirmadas (Fase 1 y Fase 2)</h3>
+<ul>
+<li><strong>Enfoque del producto:</strong> Tienda e-commerce insignia de demostración de Atypico Studio para mostrar capacidad técnica y de conversión.</li>
+<li><strong>Dominio comercial:</strong> Moda Urbana / Streetwear con categorías Camisetas Oversize, Pantalones Cargo y Accesorios.</li>
+<li><strong>Modelo de cierre y cobro:</strong> Exclusión de pasarelas de tarjeta automatizadas; adopción de transferencia bancaria y confirmación vía WhatsApp.</li>
+<li><strong>Filtros preventivos:</strong> Deshabilitación visual de tallas sin stock para evitar vistas vacías (<code>RN-02</code>).</li>
+<li><strong>Feedback de carrito:</strong> Notificación Toast y badge numérico en barra superior al añadir productos (<code>RN-05</code>).</li>
+<li><strong>Logística:</strong> Envío liquidado en checkout según ciudad: $3.50 local / $5.00 nacional (<code>RN-11</code>).</li>
+<li><strong>Estructura de especificaciones:</strong> Adopción de 4 especificaciones funcionales 1:1 con los casos de uso aprobados (<code>SPEC-01</code> a <code>SPEC-04</code>).</li>
+<li><strong>Eliminación controlada en carrito:</strong> Confirmación dialogada al reducir de 1 a 0 para prevenir eliminaciones accidentales (<code>RN-08</code>).</li>
+</ul>
+<h3>Preguntas abiertas / Supuestos por validar en Fase 3</h3>
+<ul>
+<li><strong>Persistencia local:</strong> ¿Se utilizará <code>localStorage</code> para conservar el carrito si el usuario cierra la pestaña o recarga la página, o se mantendrá exclusivamente en estado en memoria de React? (Se definirá en el diseño técnico con <code>ahk-spec-tech</code>).</li>
+<li><strong>Estructura del mock data:</strong> ¿Se agruparán las variantes en un array plano dentro de cada producto o como sub-objetos anidados? (Se definirá en la arquitectura de tipos de la Fase 3).</li>
+</ul>
+<hr/>
+<h2>9. Decisiones propias y uso de IA</h2>
+<p><em>(Redacción personal del estudiante según el registro de trabajo)</em></p>
+<blockquote><p>"Mi proyecto es la tienda E-commerce de moda urbana para que sea una referencia de lo que puede realizar Atypico Studio, el e-commerce que voy a crear es una demostración de lo que puede hacer Atypico Studio. Excluí las pasarelas de pago por ser muy complejas actualmente.</p></blockquote>
+<blockquote><p></p></blockquote>
+<blockquote><p>Elegí moda urbana en lugar de otras propuestas generadas por la IA y modifiqué los casos de uso en el cálculo del envío y la forma de pago, enfocándome en cómo convertir clics en potenciales ventas.</p></blockquote>
+<blockquote><p></p></blockquote>
+<blockquote><p>Para la Fase 2, definí que el sistema se estructurara en 4 especificaciones funcionales directas. Además, precisé una regla clave de usabilidad: cuando un comprador tiene una sola prenda en su carrito y presiona el botón (-) para restar, el sistema no la borra bruscamente, sino que le pide una confirmación previa para no perder su selección por error. Un ejemplo válido es cuando un comprador tiene 1 Hoodie en su bolsa, presiona (-), se abre la ventana de confirmación, acepta y el ítem se remueve; si cancela, el Hoodie permanece en su bolsa.</p></blockquote>
+<blockquote><p></p></blockquote>
+<blockquote><p>La IA me ayudó a estructurar las ideas claras que tenía en documentos formales que los agentes y el harness de AHK pueden entender y validar en poco tiempo."</p></blockquote>
+<hr/>
+<h2>10. Fuentes y comprobaciones de esta fase</h2>
+<h3>Archivos fuente y especificaciones de AHK 3.0.0</h3>
+<ul>
+<li><code>docs/use-cases/cu-01-explorar-catalogo-y-filtrar.md</code> (<code>approved</code>)</li>
+<li><code>docs/use-cases/cu-02-detalle-prenda-y-variantes.md</code> (<code>approved</code>)</li>
+<li><code>docs/use-cases/cu-03-gestionar-carrito-de-compras.md</code> (<code>approved</code>)</li>
+<li><code>docs/use-cases/cu-04-checkout-y-confirmacion-pedido.md</code> (<code>approved</code>)</li>
+<li><code>docs/specs/spec-01-exploracion-y-filtrado-catalogo.md</code> (<code>approved</code>)</li>
+<li><code>docs/specs/spec-02-detalle-prenda-y-seleccion-variantes.md</code> (<code>approved</code>)</li>
+<li><code>docs/specs/spec-03-gestion-y-auditoria-carrito-compras.md</code> (<code>approved</code>)</li>
+<li><code>docs/specs/spec-04-checkout-liquidacion-y-cierre-whatsapp.md</code> (<code>approved</code>)</li>
+<li><code>docs/proceso.md</code> (Registro cronológico de decisiones reales)</li>
+<li><code>agent-harness-kit.config.json</code> (Configuración local del harness)</li>
+</ul>
+<h3>Registro de comprobaciones técnicas ejecutadas</h3>
+<table class="data-table">
+<thead><tr><th>Comprobación ejecutada</th><th>Comando / Protocolo</th><th>Resultado obtenido</th><th>Límite y alcance de la prueba</th></tr></thead>
+<tbody>
+<tr><td><strong>Versión de CLI AHK</strong></td><td><code>ahk --version</code></td><td><code>3.0.0</code></td><td>Confirma la instalación del CLI global oficial en el sistema.</td></tr>
+<tr><td><strong>Plantilla base React</strong></td><td><code>pnpm create vite@9.2.0 ...</code></td><td>React 19.2.8 + Vite 8.2.2 + TS 6.0.3</td><td>Confirma la creación del espacio de trabajo limpio sin código de producto.</td></tr>
+<tr><td><strong>Diagnóstico del Harness</strong></td><td><code>ahk doctor</code></td><td><code>agent files: [✓]</code>, <code>skills: [✓]</code></td><td>Valida que las plantillas de agentes y skills están presentes y al día.</td></tr>
+<tr><td><strong>Comprobación de salud</strong></td><td><code>ahk health</code> (vía <code>health.bat</code> -> <code>pnpm build</code>)</td><td><code>Health check passed</code> (161ms)</td><td>Comprueba que la compilación de la base es limpia; no prueba funcionalidades futuras.</td></tr>
+<tr><td><strong>Lectura real a MCP</strong></td><td><code>specs.list</code> vía <code>ahk serve</code> (stdio JSON-RPC)</td><td><code>items: 8</code>, <code>isError: false</code></td><td>Valida la conectividad real con el servidor MCP y los 4 casos y 4 specs aprobados.</td></tr>
+<tr><td><strong>Lectura final y coherencia</strong></td><td>Inspección de títulos y referencias</td><td>20 apartados completos y alineados</td><td>Verifica que todas las secciones coinciden con las decisiones del estudiante.</td></tr>
+</tbody></table>
+<hr/>
+<h2>11. Procesos detallados</h2>
+<h3>PR-01: Filtrado y navegación de prendas urbanas</h3>
+<ul>
+<li><strong>Identificador documental:</strong> <code>PR-01</code></li>
+<li><strong>Casos relacionados:</strong> <code>CU-01</code> (<code>SPEC-01</code>).</li>
+<li><strong>Actor:</strong> Comprador de moda urbana.</li>
+<li><strong>Inicio (Trigger):</strong> El usuario ingresa a la tienda online o pulsa la sección "Colección".</li>
+<li><strong>Condiciones previas:</strong> El catálogo contiene productos precargados con precio, variantes e inventario.</li>
+<li><strong>Datos de entrada:</strong> Categoría pulsada (opcional), talla seleccionada (opcional).</li>
+<li><strong>Pasos usuario / producto:</strong></li>
+<ol>
+<li>El usuario visualiza la cuadrícula de productos completa.</li>
+<li>El usuario hace clic en una píldora de categoría (ej. "Pantalones Cargo"). El sistema filtra reactivamente los artículos mostrados.</li>
+<li>El usuario pulsa un botón de talla (ej. "M"). El sistema filtra las prendas con disponibilidad en talla M y desactiva las tallas sin stock.</li>
+</ol>
+<li><strong>Decisiones:</strong> Si se pulsa la categoría activa nuevamente, se limpia el filtro.</li>
+<li><strong>Reglas aplicables:</strong> <code>RN-01</code>, <code>RN-02</code>, <code>RN-03</code>.</li>
+<li><strong>Resultado:</strong> Lista de productos filtrada en tiempo real.</li>
+</ul>
+<h3>PR-02: Inspección de ficha técnica y adición de variantes</h3>
+<ul>
+<li><strong>Identificador documental:</strong> <code>PR-02</code></li>
+<li><strong>Casos relacionados:</strong> <code>CU-02</code> (<code>SPEC-02</code>).</li>
+<li><strong>Actor:</strong> Comprador de moda urbana.</li>
+<li><strong>Inicio (Trigger):</strong> Clic sobre una tarjeta de prenda en el catálogo.</li>
+<li><strong>Condiciones previas:</strong> Prenda activa con al menos una variante registrada.</li>
+<li><strong>Datos de entrada:</strong> Talla elegida, color elegido, clic en "Añadir a la bolsa".</li>
+<li><strong>Pasos usuario / producto:</strong></li>
+<ol>
+<li>El producto despliega la ficha con galería, precio, composición textil y corte. Preselecciona la primera talla con stock.</li>
+<li>El usuario elige su combinación de talla y color.</li>
+<li>El usuario pulsa "Añadir a la bolsa". El producto suma la unidad a la bolsa, actualiza el badge en la cabecera (+1) y muestra una notificación Toast temporal (3 segundos).</li>
+</ol>
+<li><strong>Decisiones:</strong> Si la variante no tiene existencias, el botón se bloquea mostrando "Agotado".</li>
+<li><strong>Reglas aplicables:</strong> <code>RN-04</code>, <code>RN-05</code>, <code>RN-06</code>.</li>
+<li><strong>Resultado:</strong> Prenda añadida a la bolsa sin salir de la ficha.</li>
+</ul>
+<h3>PR-03: Gestión y auditoría de la bolsa de compras</h3>
+<ul>
+<li><strong>Identificador documental:</strong> <code>PR-03</code></li>
+<li><strong>Casos relacionados:</strong> <code>CU-03</code> (<code>SPEC-03</code>).</li>
+<li><strong>Actor:</strong> Comprador de moda urbana.</li>
+<li><strong>Inicio (Trigger):</strong> Clic en el ícono de la bolsa en la cabecera.</li>
+<li><strong>Condiciones previas:</strong> Existencia de estado de bolsa en la sesión.</li>
+<li><strong>Datos de entrada:</strong> Clic en (+), (-), eliminar o "Continuar al checkout".</li>
+<li><strong>Pasos usuario / producto:</strong></li>
+<ol>
+<li>El producto lista las prendas añadidas con su precio unitario, subtotal y controles.</li>
+<li>Al presionar (+), el producto incrementa la unidad si no supera el stock máximo.</li>
+<li>Al presionar (-) sobre cantidad 1, el producto abre una confirmación dialogada. Si el usuario confirma, la prenda se elimina; si cancela, permanece en 1.</li>
+<li>El producto recalcula el subtotal acumulado de prendas al instante.</li>
+</ol>
+<li><strong>Decisiones:</strong> Si la bolsa queda en 0 prendas, se bloquea el botón de checkout.</li>
+<li><strong>Reglas aplicables:</strong> <code>RN-07</code>, <code>RN-08</code>, <code>RN-09</code>, <code>RN-10</code>.</li>
+<li><strong>Resultado:</strong> Bolsa auditada con subtotal exacto lista para pagar.</li>
+</ul>
+<h3>PR-04: Liquidación de flete, formalización de orden y derivación a WhatsApp</h3>
+<ul>
+<li><strong>Identificador documental:</strong> <code>PR-04</code></li>
+<li><strong>Casos relacionados:</strong> <code>CU-04</code> (<code>SPEC-04</code>).</li>
+<li><strong>Actor:</strong> Comprador de moda urbana.</li>
+<li><strong>Inicio (Trigger):</strong> Clic en "Continuar al checkout" desde el carrito con artículos.</li>
+<li><strong>Condiciones previas:</strong> Subtotal de bolsa > $0. Datos bancarios configurados.</li>
+<li><strong>Datos de entrada:</strong> Nombre completo, Teléfono/WhatsApp, Ciudad/Provincia, Dirección exacta.</li>
+<li><strong>Pasos usuario / producto:</strong></li>
+<ol>
+<li>El usuario completa los campos del formulario de entrega.</li>
+<li>Al seleccionar la ciudad en el desplegable, el producto suma reactivamente $3.50 (local) o $5.00 (nacional) liquidando el Total a transferir.</li>
+<li>El usuario pulsa "Confirmar pedido y pagar por transferencia". El producto valida campos, genera <code>#ATY-XXXX</code>, vacía la bolsa y presenta la pantalla final.</li>
+<li>El usuario pulsa "Enviar comprobante por WhatsApp". El producto abre la app con el texto pre-formateado.</li>
+</ol>
+<li><strong>Decisiones:</strong> Si faltan campos requeridos, se detiene el envío y se marcan los errores.</li>
+<li><strong>Reglas aplicables:</strong> <code>RN-11</code>, <code>RN-12</code>, <code>RN-13</code>, <code>RN-14</code>, <code>RN-15</code>, <code>RN-16</code>.</li>
+<li><strong>Resultado:</strong> Orden registrada, bolsa vacía y mensaje en WhatsApp listo para enviar.</li>
+</ul>
+<hr/>
+<h2>12. Reglas del negocio</h2>
+<table class="data-table">
+<thead><tr><th>Identificador</th><th>Condición del producto</th><th>Comportamiento exigido</th><th>Motivo de negocio</th><th>Procesos afectados</th></tr></thead>
+<tbody>
+<tr><td><strong>RN-01</strong></td><td>Categorización de prendas</td><td>El catálogo solo admite las categorías "Camisetas Oversize", "Pantalones Cargo" y "Accesorios".</td><td>Mantener una curaduría comercial especializada en streetwear.</td><td>PR-01</td></tr>
+<tr><td><strong>RN-02</strong></td><td>Inventario por talla</td><td>Si una talla tiene 0 existencias para la categoría activa, su selector se muestra deshabilitado.</td><td>Evitar que el usuario filtre combinaciones que arrojen una grilla vacía.</td><td>PR-01</td></tr>
+<tr><td><strong>RN-03</strong></td><td>Cambio de categoría activa</td><td>Al cambiar de categoría, el filtro de talla se reevalúa según el stock de la nueva selección.</td><td>Prevenir inconsistencias de inventario entre distintas prendas.</td><td>PR-01</td></tr>
+<tr><td><strong>RN-04</strong></td><td>Adición a bolsa</td><td>No se puede pulsar "Añadir a la bolsa" sin una talla seleccionada explícitamente o por defecto.</td><td>Garantizar que el pedido especifique las medidas exactas requeridas.</td><td>PR-02</td></tr>
+<tr><td><strong>RN-05</strong></td><td>Notificación de compra</td><td>La adición de prenda genera un toast temporal (3s) y suma +1 al badge en cabecera.</td><td>Ofrecer feedback inmediato sin interrumpir la navegación del cliente.</td><td>PR-02</td></tr>
+<tr><td><strong>RN-06</strong></td><td>Stock de variante en ficha</td><td>Si la variante elegida tiene stock 0, el botón principal cambia a "Agotado en esta talla" y se bloquea.</td><td>Prevenir sobreventas de prendas sin existencias en bodega.</td><td>PR-02</td></tr>
+<tr><td><strong>RN-07</strong></td><td>Envío diferido en bolsa</td><td>En el carrito solo se totaliza la suma de precios de prendas; no se calcula flete.</td><td>Mantener transparencia sin inventar un costo de envío antes de saber la ciudad.</td><td>PR-03</td></tr>
+<tr><td><strong>RN-08</strong></td><td>Decremento a cero</td><td>Si la cantidad es 1 y se presiona (-), se abre un diálogo modal de confirmación antes de borrar.</td><td>Evitar que un clic accidental elimine una prenda que el usuario deseaba comprar.</td><td>PR-03</td></tr>
+<tr><td><strong>RN-09</strong></td><td>Límite de existencias</td><td>El botón (+) se deshabilita cuando la cantidad en bolsa iguala las existencias de esa variante.</td><td>No permitir añadir al carrito más unidades de las que realmente existen.</td><td>PR-03</td></tr>
+<tr><td><strong>RN-10</strong></td><td>Bloqueo en bolsa vacía</td><td>Si la bolsa tiene 0 artículos, el botón "Continuar al checkout" se desactiva permanentemente.</td><td>Prevenir el inicio de compras de valor $0 sin prendas asociadas.</td><td>PR-03</td></tr>
+<tr><td><strong>RN-11</strong></td><td>Tarifas de flete</td><td>La ciudad local asigna flete de $3.50; cualquier otra ciudad o provincia asigna $5.00.</td><td>Reflejar los costos logísticos reales de mensajería urbana vs courier nacional.</td><td>PR-04</td></tr>
+<tr><td><strong>RN-12</strong></td><td>Validación de formulario</td><td>Todos los campos de entrega son obligatorios; si alguno falta, se bloquea la confirmación.</td><td>Asegurar que el comercio tenga toda la información necesaria para el despacho.</td><td>PR-04</td></tr>
+<tr><td><strong>RN-13</strong></td><td>Identificador de orden</td><td>Toda orden confirmada genera un código con formato <code>#ATY-</code> + 4 dígitos no repetidos.</td><td>Brindar un código de rastreo formal tanto para el cliente como para la tienda.</td><td>PR-04</td></tr>
+<tr><td><strong>RN-14</strong></td><td>Vaciado transaccional</td><td>Al confirmarse la orden, la bolsa de compras se reinicia inmediatamente a 0 prendas.</td><td>Evitar que el usuario vuelva a confirmar la misma compra por error.</td><td>PR-04</td></tr>
+<tr><td><strong>RN-15</strong></td><td>Integración WhatsApp</td><td>El botón final genera un enlace <code>wa.me</code> con el mensaje pre-cargado con orden y monto.</td><td>Automatizar la comunicación y eliminar la necesidad de que el cliente redacte el texto.</td><td>PR-04</td></tr>
+<tr><td><strong>RN-16</strong></td><td>Exclusión de tarjeta</td><td>No se solicitan ni capturan datos de tarjetas de crédito o débito en la aplicación web.</td><td>Limitar el alcance a transferencias directas según el modelo de negocio pactado.</td><td>PR-04</td></tr>
+</tbody></table>
+<hr/>
+<h2>13. Datos necesarios y su significado</h2>
+<table class="data-table">
+<thead><tr><th>Dato</th><th>Origen</th><th>Significado</th><th>Obligatoriedad</th><th>Valores permitidos</th><th>Visibilidad y mutabilidad</th></tr></thead>
+<tbody>
+<tr><td><strong>ID de Producto</strong></td><td>Catálogo</td><td>Identificador interno de la prenda.</td><td>Obligatorio</td><td>String alfanumérico (ej. <code>prod-01</code>).</td><td>Solo lectura por el sistema.</td></tr>
+<tr><td><strong>Nombre de Prenda</strong></td><td>Catálogo</td><td>Nombre comercial de la prenda.</td><td>Obligatorio</td><td>Texto (ej. "Camiseta Oversize Acid Wash").</td><td>Visible; no editable.</td></tr>
+<tr><td><strong>Categoría</strong></td><td>Catálogo</td><td>Clasificación temática del producto.</td><td>Obligatorio</td><td>"Camisetas Oversize", "Pantalones Cargo", "Accesorios".</td><td>Visible; filtro editable por usuario.</td></tr>
+<tr><td><strong>Precio Unitario</strong></td><td>Catálogo</td><td>Valor de venta en dólares de la prenda.</td><td>Obligatorio</td><td>Decimal positivo (ej. $38.00).</td><td>Visible; no editable.</td></tr>
+<tr><td><strong>Talla seleccionada</strong></td><td>Usuario</td><td>Dimensión de confección elegida.</td><td>Obligatorio</td><td>"S", "M", "L", "XL" o "Única" (accesorios).</td><td>Seleccionable por el comprador.</td></tr>
+<tr><td><strong>Color seleccionado</strong></td><td>Usuario</td><td>Variante cromática elegida.</td><td>Obligatorio</td><td>Texto (ej. "Negro Faded", "Verde Militar").</td><td>Seleccionable por el comprador.</td></tr>
+<tr><td><strong>Cantidad en Bolsa</strong></td><td>Usuario</td><td>Número de unidades de la prenda.</td><td>Obligatorio</td><td>Entero entre 1 y el stock máximo.</td><td>Editable con botones (+/-).</td></tr>
+<tr><td><strong>Subtotal de Prenda</strong></td><td>Calculado</td><td><code>Precio Unitario × Cantidad</code>.</td><td>Obligatorio</td><td>Decimal positivo con 2 decimales.</td><td>Visible en bolsa; recalculado.</td></tr>
+<tr><td><strong>Subtotal de Bolsa</strong></td><td>Calculado</td><td>Sumatoria de subtotales de prendas.</td><td>Obligatorio</td><td>Decimal positivo con 2 decimales.</td><td>Visible en bolsa y checkout.</td></tr>
+<tr><td><strong>Nombre Completo</strong></td><td>Usuario</td><td>Nombre de quien recibe la entrega.</td><td>Obligatorio</td><td>Texto (3 a 60 caracteres).</td><td>Editable en checkout.</td></tr>
+<tr><td><strong>Teléfono / WhatsApp</strong></td><td>Usuario</td><td>Número de contacto para coordinación.</td><td>Obligatorio</td><td>Dígitos numéricos (7 a 15 dígitos).</td><td>Editable en checkout.</td></tr>
+<tr><td><strong>Ciudad / Provincia</strong></td><td>Usuario</td><td>Destino geográfico del paquete.</td><td>Obligatorio</td><td>Opciones del menú desplegable.</td><td>Seleccionable en checkout.</td></tr>
+<tr><td><strong>Dirección y Referencia</strong></td><td>Usuario</td><td>Calle principal, secundaria y número.</td><td>Obligatorio</td><td>Texto (5 a 120 caracteres).</td><td>Editable en checkout.</td></tr>
+<tr><td><strong>Costo de Envío</strong></td><td>Calculado</td><td>Tarifa de flete según la ciudad.</td><td>Obligatorio</td><td>$3.50 (local) o $5.00 (nacional).</td><td>Calculado automáticamente.</td></tr>
+<tr><td><strong>Total a Transferir</strong></td><td>Calculado</td><td><code>Subtotal de Bolsa + Costo de Envío</code>.</td><td>Obligatorio</td><td>Decimal positivo en dólares.</td><td>Calculado automáticamente.</td></tr>
+<tr><td><strong>Código de Orden</strong></td><td>Generado</td><td>Identificador único del pedido.</td><td>Obligatorio</td><td>Formato <code>#ATY-</code> + 4 dígitos (ej. <code>#ATY-8421</code>).</td><td>Generado al confirmar; inmutable.</td></tr>
+</tbody></table>
+<hr/>
+<h2>14. Validaciones, permisos y restricciones</h2>
+<h3>Permisos por actor</h3>
+<ul>
+<li><strong>Comprador:</strong> Tiene permitido navegar libremente por catálogo, fichas, carrito y checkout; no requiere autenticación ni cuenta de usuario.</li>
+<li><strong>Asesor externo:</strong> No tiene acceso a un panel de control dentro de la app web; solo interactúa cuando el cliente le escribe por WhatsApp.</li>
+</ul>
+<h3>Validaciones del sistema</h3>
+<ol>
+<li><strong>Validación de Variante en Detalle:</strong> Si el usuario no tiene una talla seleccionada, el botón "Añadir a la bolsa" se mantiene deshabilitado.</li>
+<li><strong>Validación de Disponibilidad:</strong> Al presionar (+), si la cantidad iguala el stock registrado, el sistema bloquea el incremento y muestra <em>"Stock máximo alcanzado"</em>.</li>
+<li><strong>Validación de Carrito Vacío:</strong> No se puede ingresar a <code>/checkout</code> si la cantidad total de prendas es 0. El sistema redirige al catálogo.</li>
+<li><strong>Validación de Checkout:</strong></li>
+<ul>
+<li><strong>Nombre:</strong> Debe contener al menos 3 caracteres alfabéticos.</li>
+<li><strong>Teléfono:</strong> Debe ser un número válido de 7 a 15 dígitos.</li>
+<li><strong>Ciudad:</strong> Debe haberse seleccionado una opción válida de la lista desplegable.</li>
+<li><strong>Dirección:</strong> No puede estar vacía ni contener solo espacios en blanco.</li>
+<li><em>Respuesta ante error:</em> Los campos con fallas se resaltan en rojo con mensajes descriptivos bajo el input y el botón de confirmación se bloquea.</li>
+</ul>
+</ol>
+<hr/>
+<h2>15. Estados y cambios permitidos</h2>
+<h3>Ciclo de estados de la Bolsa de Compras (Carrito)</h3>
+<pre><code class="">[VACÍA] ──(Añadir prenda)──&gt; [CON_ARTÍCULOS] ──(Confirmar orden)──&gt; [VACÍA]
+   ▲                               │
+   └──────(Eliminar prendas)───────┘</code></pre>
+<ul>
+<li><strong>Estado inicial:</strong> <code>VACÍA</code> (0 prendas, contador en 0).</li>
+<li><strong>Cambio permitido:</strong> Al añadir cualquier prenda, transiciona a <code>CON_ARTÍCULOS</code>. Se habilitan los controles de cantidad y el botón "Continuar al checkout".</li>
+<li><strong>Retorno a vacía:</strong> Al eliminar todos los artículos (con confirmación dialogada) o tras pulsar "Confirmar pedido" en el checkout, transiciona nuevamente a <code>VACÍA</code>.</li>
+</ul>
+<h3>Ciclo de estados de la Orden de Compra</h3>
+<pre><code class="">[FORMULARIO_BORRADOR] ──(Validación exitosa)──&gt; [ORDEN_CONFIRMADA]</code></pre>
+<ul>
+<li><strong>Estado <code>FORMULARIO_BORRADOR</code>:</strong> Datos ingresados por el comprador en la pantalla de checkout; el flete se liquida en tiempo real pero aún no existe código <code>#ATY-XXXX</code>.</li>
+<li><strong>Estado <code>ORDEN_CONFIRMADA</code>:</strong> El usuario pulsa confirmar, los datos son válidos, se genera el identificador <code>#ATY-XXXX</code> y se presentan los datos bancarios y el enlace a WhatsApp.</li>
+</ul>
+<hr/>
+<h2>16. Cálculos y ejemplos</h2>
+<h3>Fórmulas del negocio</h3>
+<ol>
+<li><strong>Subtotal de fila:</strong></li>
+</ol>
+<p>$$\text{Subtotal Fila} = \text{Precio Unitario} \times \text{Cantidad}$$</p>
+<ul>
+<li><em>Unidad:</em> Dólares estadounidenses (USD). Redondeo a 2 decimales.</li>
+</ul>
+<ol>
+<li><strong>Subtotal general de la bolsa:</strong></li>
+</ol>
+<p>$$\text{Subtotal Bolsa} = \sum_{i=1}^{n} \text{Subtotal Fila}_i$$</p>
+<ol>
+<li><strong>Costo de envío (Flete):</strong></li>
+</ol>
+<p>$$\text{Flete} = \begin{cases} \$3.50 & \text{si Ciudad} \in \{\text{"Guayaquil"}, \text{"Quito"}\} \\ \$5.00 & \text{si Ciudad} = \text{"Otra provincia"} \end{cases}$$</p>
+<ol>
+<li><strong>Total definitivo a transferir:</strong></li>
+</ol>
+<p>$$\text{Total Orden} = \text{Subtotal Bolsa} + \text{Flete}$$</p>
+<h3>Ejemplos numéricos concretos</h3>
+<ul>
+<li><strong>Ejemplo 1 (Compra estándar con envío local):</strong></li>
+<ul>
+<li>1 Camiseta Oversize Acid Wash ($38.00) + 1 Pantalón Cargo Negro ($55.00).</li>
+<li>Subtotal de prendas: $38.00 + $55.00 = <strong>$93.00</strong>.</li>
+<li>Destino seleccionado: <em>Guayaquil (Local)</em> $\rightarrow$ Envío = <strong>$3.50</strong>.</li>
+<li><strong>Total a transferir:</strong> $93.00 + $3.50 = <strong>$96.50</strong>.</li>
+</ul>
+<li><strong>Ejemplo 2 (Compra única con envío nacional):</strong></li>
+<ul>
+<li>1 Gorra Streetwear ($25.00).</li>
+<li>Subtotal de prendas: <strong>$25.00</strong>.</li>
+<li>Destino seleccionado: <em>Cuenca (Nacional)</em> $\rightarrow$ Envío = <strong>$5.00</strong>.</li>
+<li><strong>Total a transferir:</strong> $25.00 + $5.00 = <strong>$30.00</strong>.</li>
+</ul>
+<li><strong>Ejemplo límite / Inválido:</strong></li>
+<ul>
+<li>Subtotal = $0.00 $\rightarrow$ El sistema bloquea el checkout impidiendo calcular fletes sobre órdenes vacías.</li>
+</ul>
+</ul>
+<hr/>
+<h2>17. Alternativas, errores y recuperación</h2>
+<table class="data-table">
+<thead><tr><th>Situación / Error</th><th>Lo que observa el usuario</th><th>Lo que cambia o permanece igual</th><th>Acción de recuperación para el usuario</th></tr></thead>
+<tbody>
+<tr><td><strong>Intento de decrementar de 1 a 0 en bolsa</strong></td><td>Diálogo modal: <em>"¿Deseas eliminar esta prenda de tu bolsa?"</em> con botones <em>Cancelar</em> y <em>Eliminar</em>.</td><td>La cantidad permanece en 1 hasta que el usuario decida.</td><td>Si pulsa Cancelar, el diálogo se cierra y la prenda sigue en 1. Si pulsa Eliminar, la prenda se remueve.</td></tr>
+<tr><td><strong>Intento de superar stock máximo en bolsa</strong></td><td>El botón (+) cambia a estilo inactivo y se visualiza la advertencia <em>"Stock máximo alcanzado"</em>.</td><td>La cantidad permanece en el límite disponible sin sumar más unidades.</td><td>El usuario puede continuar con esa cantidad máxima o reducirla con (-).</td></tr>
+<tr><td><strong>Envío de formulario con campos incompletos</strong></td><td>Los campos vacíos se marcan con borde rojo y textos explicativos (ej. <em>"Ingresa tu dirección"</em>).</td><td>El pedido no se procesa; no se genera código ni se cobra flete.</td><td>El comprador completa los campos marcados y vuelve a pulsar el botón de confirmación.</td></tr>
+<tr><td><strong>Bolsa vacía al intentar ingresar a checkout</strong></td><td>La pantalla redirige al catálogo con una notificación <em>"Tu bolsa está vacía"</em>.</td><td>El checkout no se inicializa.</td><td>El comprador pulsa <em>"Explorar colección"</em> y añade al menos una prenda para poder comprar.</td></tr>
+<tr><td><strong>Arrepentimiento de compra antes de confirmar</strong></td><td>El comprador pulsa el enlace <em>"← Volver a la bolsa"</em>.</td><td>Los datos ya ingresados en el formulario de envío se preservan en memoria.</td><td>El comprador ajusta prendas o cantidades y regresa al checkout sin tener que reescribir sus datos.</td></tr>
+</tbody></table>
+<hr/>
+<h2>18. Criterios de aceptación y ejemplos comprobables</h2>
+<ul>
+<li><strong><code>CA-01</code> (Catálogo inicial):</strong> Dado el acceso al catálogo, cuando se carga la página principal, entonces se muestran prendas de las 3 categorías con su imagen, precio y disponibilidad.</li>
+<li><strong><code>CA-02</code> (Filtro de categoría):</strong> Dada la vista de catálogo, cuando el comprador pulsa "Pantalones Cargo", entonces la cuadrícula se actualiza en <100ms mostrando exclusivamente pantalones cargo.</li>
+<li><strong><code>CA-03</code> (Filtro preventivo de talla):</strong> Dada una categoría activa, cuando una talla tiene 0 unidades en inventario, entonces el botón de esa talla aparece visualmente deshabilitado con cursor bloqueado.</li>
+<li><strong><code>CA-04</code> (Limpieza de filtros):</strong> Dado un catálogo con filtros aplicados, cuando el usuario pulsa "Ver todos", entonces se restablece la colección completa sin filtros activos.</li>
+<li><strong><code>CA-05</code> (Preselección de variante):</strong> Dada la apertura de una ficha de prenda, cuando la vista carga, entonces la primera talla con stock disponible aparece preseleccionada automáticamente.</li>
+<li><strong><code>CA-06</code> (Bloqueo de botón ante stock cero):</strong> Dada una prenda con una talla agotada, cuando el usuario hace clic sobre esa talla, entonces el botón de compra se deshabilita y muestra "Agotado en esta talla".</li>
+<li><strong><code>CA-07</code> (Feedback de adición):</strong> Dada una prenda disponible, cuando el usuario pulsa "Añadir a la bolsa", entonces el contador en cabecera suma +1 y aparece una notificación Toast visible por 3 segundos confirmando el producto y talla añadida.</li>
+<li><strong><code>CA-08</code> (Retorno a colección):</strong> Dada la ficha de detalle, cuando el usuario pulsa "← Volver a la colección", entonces regresa al catálogo manteniendo la posición y filtros previos.</li>
+<li><strong><code>CA-09</code> (Cálculo de subtotal en carrito):</strong> Dadas 2 prendas en el carrito, cuando el usuario pulsa (+) en una de ellas, entonces el subtotal de la fila y el subtotal general se recalculan inmediatamente.</li>
+<li><strong><code>CA-10</code> (Confirmación al decrementar de 1 a 0):</strong> Dada una prenda con cantidad 1 en el carrito, cuando el usuario pulsa (-), entonces se despliega un diálogo de confirmación previa antes de remover el producto.</li>
+<li><strong><code>CA-11</code> (Cancelación de diálogo):</strong> Dado el diálogo de confirmación abierto, cuando el usuario pulsa "Cancelar", entonces la prenda no se elimina y la cantidad permanece en 1.</li>
+<li><strong><code>CA-12</code> (Tope de existencias):</strong> Dada una prenda con stock máximo de 3 unidades, cuando el carrito alcanza 3 unidades, entonces el botón (+) se inhabilita emitiendo "Stock máximo alcanzado".</li>
+<li><strong><code>CA-13</code> (Bloqueo de bolsa vacía):</strong> Dada una bolsa con 0 prendas, cuando se visualiza la pantalla, entonces el botón "Continuar al checkout" permanece inactivo y se muestra el mensaje "Tu bolsa está vacía".</li>
+<li><strong><code>CA-14</code> (Cálculo reactivo de flete):</strong> Dado el formulario de checkout, cuando el comprador selecciona "Guayaquil", entonces el flete suma $3.50; si selecciona "Otra provincia", suma $5.00 de manera instantánea.</li>
+<li><strong><code>CA-15</code> (Validación de obligatoriedad):</strong> Dado el checkout con campos en blanco, cuando el comprador pulsa "Confirmar pedido", entonces no se procesa la orden y los campos incompletos se señalan con mensajes de error en rojo.</li>
+<li><strong><code>CA-16</code> (Generación de orden única):</strong> Dado un formulario válido, cuando el comprador confirma, entonces el sistema genera un código alfanumérico en formato <code>#ATY-XXXX</code> y vacía la bolsa de compras.</li>
+<li><strong><code>CA-17</code> (Presentación de datos bancarios):</strong> Dada la orden confirmada, cuando se muestra la pantalla final, entonces se visualizan el número de cuenta bancaria, titular, RUC/Cédula y banco para la transferencia.</li>
+<li><strong><code>CA-18</code> (Enlace estructurado a WhatsApp):</strong> Dada la pantalla final, cuando el comprador pulsa "Enviar comprobante por WhatsApp", entonces se abre la app con el texto pre-cargado conteniendo el número de orden (<code>#ATY-XXXX</code>) y el monto exacto liquidado.</li>
+</ul>
+<hr/>
+<h2>19. Relación entre casos, procesos, reglas y criterios (Matriz de trazabilidad)</h2>
+<table class="data-table">
+<thead><tr><th>Caso de Uso (AHK)</th><th>Proceso Detallado</th><th>Reglas de Negocio Aplicables</th><th>Datos y Estados Clave</th><th>Criterios de Aceptación</th><th>Especificación AHK Fuente</th></tr></thead>
+<tbody>
+<tr><td><code>cu-01-explorar-catalogo-y-filtrar</code></td><td><code>PR-01: Filtrado y navegación de prendas</code></td><td><code>RN-01</code>, <code>RN-02</code>, <code>RN-03</code></td><td>Categoría, Talla, Stock disponible</td><td><code>CA-01</code>, <code>CA-02</code>, <code>CA-03</code>, <code>CA-04</code></td><td><code>spec-01-exploracion-y-filtrado-catalogo</code></td></tr>
+<tr><td><code>cu-02-detalle-prenda-y-variantes</code></td><td><code>PR-02: Inspección técnica y variantes</code></td><td><code>RN-04</code>, <code>RN-05</code>, <code>RN-06</code></td><td>ID Producto, Talla, Color, Stock, Toast</td><td><code>CA-05</code>, <code>CA-06</code>, <code>CA-07</code>, <code>CA-08</code></td><td><code>spec-02-detalle-prenda-y-seleccion-variantes</code></td></tr>
+<tr><td><code>cu-03-gestionar-carrito-de-compras</code></td><td><code>PR-03: Auditoría de la bolsa de compras</code></td><td><code>RN-07</code>, <code>RN-08</code>, <code>RN-09</code>, <code>RN-10</code></td><td>Cantidad, Subtotal fila, Subtotal bolsa, Estado <code>CON_ARTÍCULOS</code> / <code>VACÍA</code></td><td><code>CA-09</code>, <code>CA-10</code>, <code>CA-11</code>, <code>CA-12</code>, <code>CA-13</code></td><td><code>spec-03-gestion-y-auditoria-carrito-compras</code></td></tr>
+<tr><td><code>cu-04-checkout-y-confirmacion-pedido</code></td><td><code>PR-04: Liquidación, orden y WhatsApp</code></td><td><code>RN-11</code>, <code>RN-12</code>, <code>RN-13</code>, <code>RN-14</code>, <code>RN-15</code>, <code>RN-16</code></td><td>Nombre, Teléfono, Ciudad, Dirección, Flete ($3.50/$5.00), Total, <code>#ATY-XXXX</code></td><td><code>CA-14</code>, <code>CA-15</code>, <code>CA-16</code>, <code>CA-17</code>, <code>CA-18</code></td><td><code>spec-04-checkout-liquidacion-y-cierre-whatsapp</code></td></tr>
+</tbody></table>
+<hr/>
+<h2>20. Cambios respecto de la primera entrega</h2>
+<table class="data-table">
+<thead><tr><th>Aspecto</th><th>Versión Fase 1 (Anterior)</th><th>Versión Fase 2 (Actual)</th><th>Motivo del cambio</th><th>Fuentes AHK afectadas</th></tr></thead>
+<tbody>
+<tr><td><strong>Estructuración formal</strong></td><td>Solo existían los 4 casos de uso en <code>docs/use-cases/</code>.</td><td>Se materializan <strong>4 especificaciones funcionales</strong> en <code>docs/specs/</code> vinculadas por <code>sourceUseCases</code>.</td><td>Cumplir el requisito metodológico de AHK 3.0.0 y la trazabilidad funcional de la consigna.</td><td><code>spec-01</code>, <code>spec-02</code>, <code>spec-03</code>, <code>spec-04</code>.</td></tr>
+<tr><td><strong>Regla de decremento en bolsa</strong></td><td>Se contemplaba que reducir de 1 a 0 borraba directamente el producto.</td><td>Se define formalmente la regla <strong><code>RN-08</code></strong>: <strong>Confirmación dialogada obligatoria</strong> antes de remover la prenda.</td><td>Prevenir la pérdida accidental de artículos seleccionados por el comprador (decisión explícita del estudiante).</td><td><code>cu-03</code>, <code>spec-03</code>, <code>PR-03</code>.</td></tr>
+<tr><td><strong>Tarifación logística</strong></td><td>Se mencionó el envío por ciudad de forma general.</td><td>Se formalizan las tarifas exactas en <strong><code>RN-11</code></strong>: <strong>$3.50 local y $5.00 nacional</strong> con cálculo aritmético explícito.</td><td>Precisar los valores numéricos para habilitar la implementación en React y la validación en pruebas.</td><td><code>cu-04</code>, <code>spec-04</code>, <code>PR-04</code>.</td></tr>
+<tr><td><strong>Validaciones de formulario</strong></td><td>Validación genérica de campos no vacíos.</td><td>Especificación rigurosa de longitudes mínimas, formato numérico para teléfono y feedback visual de error (<code>RN-12</code>).</td><td>Eliminar ambigüedades en la experiencia de usuario previo al diseño técnico.</td><td><code>spec-04</code>, <code>PR-04</code>.</td></tr>
+<tr><td><strong>Trazabilidad de requisitos</strong></td><td>Sin matriz de trazabilidad.</td><td>Inclusión de la <strong>Matriz de Trazabilidad Integral</strong> (Sección 19) relacionando casos, procesos, reglas y criterios.</td><td>Requisito obligatorio de la consigna para garantizar auditoría completa del producto.</td><td>Todo el sistema documental.</td></tr>
+</tbody></table>
+</body>
+</html>
