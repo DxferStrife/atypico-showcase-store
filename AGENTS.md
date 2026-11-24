@@ -56,7 +56,7 @@ docs.search          query                                  → search ./docs fo
    - tasks.get('in_progress') → resume if something is in progress
    - tasks.get('pending') → pick lowest id
 
-2. WORK  (lead → explorer → consultant → builder → reviewer)
+2. WORK  (lead → explorer → consultant → builder → [custom:ux-auditor en tareas UI/CSS] → reviewer)
      - Each agent calls actions.start(taskId, agentName) → numeric actionId
      - Closes with actions.complete(actionId, summary)
 
@@ -66,13 +66,21 @@ docs.search          query                                  → search ./docs fo
 
 ## Agent roles
 
-| Agent | Responsibility |
-|-------|---------------|
-| lead | Decomposes the task into a plan, assigns sub-agents |
-| explorer | Reads and maps relevant code, never writes |
-| consultant | Technical advisor, runs after explorer, before builder. Never writes code. |
-| builder | Implements the plan, writes files |
-| reviewer | Verifies acceptance criteria, approves or blocks |
+| Agent | MCP Actor | Responsibility |
+|-------|-----------|---------------|
+| lead | `lead` | Decomposes the task into a plan, assigns sub-agents |
+| explorer | `explorer` | Reads and maps relevant code, never writes |
+| consultant | `consultant` | Technical advisor, runs after explorer, before builder. Never writes code. |
+| builder | `builder` | Implements the plan, writes files |
+| ux-auditor | `custom:ux-auditor` | Audits UX/UI, WCAG contrast, `:root` CSS tokens, spacing, borders, and `DESIGN.md` compliance after builder (`readonly`) |
+| reviewer | `reviewer` | Verifies acceptance criteria, approves or blocks |
+
+## Custom Design & UX Skills
+
+| Skill | Purpose |
+|-------|---------|
+| `ahk-ux-audit` | 8-dimension UX/UI & WCAG contrast audit workflow using `custom:ux-auditor` |
+| `ahk-design-system` | Governs `DESIGN.md` and `:root` CSS custom properties contract |
 
 ## What to read
 

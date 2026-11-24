@@ -8,12 +8,6 @@ type DeleteConfirmModalProps = {
   onConfirm: () => void;
 };
 
-/**
- * Modal de confirmación preventiva (Regla RN-08 + Requisito 2 del profesor).
- * Construido 100% con HTML accesible y CSS usando tokens en :root.
- * - Si el usuario cancela (botón, backdrop o ESC): el ítem permanece intacto.
- * - Si el usuario confirma: el ítem se elimina y actualiza el subtotal.
- */
 export function DeleteConfirmModal({
   item,
   onCancel,
@@ -44,10 +38,20 @@ export function DeleteConfirmModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="aty-modal__header">
-          <span className="aty-eyebrow">CONFIRMACIÓN PREVENTIVA // RN-08</span>
-          <h2 id="delete-modal-title" className="aty-modal__title">
-            ¿Eliminar prenda de tu bolsa?
-          </h2>
+          <div>
+            <span className="aty-eyebrow">BOLSA DE COMPRA</span>
+            <h2 id="delete-modal-title" className="aty-modal__title">
+              ¿Quitar esta prenda de tu bolsa?
+            </h2>
+          </div>
+          <button
+            type="button"
+            className="aty-icon-btn"
+            onClick={onCancel}
+            aria-label="Cerrar confirmación"
+          >
+            ✕
+          </button>
         </div>
 
         <div className="aty-modal__body">
@@ -64,14 +68,14 @@ export function DeleteConfirmModal({
                 {item.quantity === 1 ? 'unidad' : 'unidades'}
               </p>
               <p className="aty-modal__item-price">
-                Subtotal línea: {formatCurrency(item.price * item.quantity)}
+                Subtotal: {formatCurrency(item.price * item.quantity)}
               </p>
             </div>
           </div>
 
           <p className="aty-modal__warning">
-            Si confirmas, esta prenda desaparecerá de tu bolsa y se recalculará el
-            subtotal. Si cancelas, permanecerá conservada.
+            Si confirmas, retiraremos esta prenda de tu bolsa y actualizaremos el
+            subtotal de tu compra.
           </p>
         </div>
 
@@ -81,14 +85,14 @@ export function DeleteConfirmModal({
             className="aty-btn aty-btn--outline"
             onClick={onCancel}
           >
-            Cancelar (Conservar)
+            Conservar prenda
           </button>
           <button
             type="button"
             className="aty-btn aty-btn--danger"
             onClick={onConfirm}
           >
-            Sí, eliminar prenda
+            Eliminar prenda
           </button>
         </div>
       </div>

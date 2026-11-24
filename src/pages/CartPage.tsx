@@ -1,21 +1,7 @@
-// =============================================================================
-// 🧭 PASO 4C: Lógica de Bolsa (`/carrito`) + Modal Preventivo (`RN-08`)
-// =============================================================================
-// Toda la vista de ítems, resumen y DeleteConfirmModal ya está maquetada abajo.
-//
-// TUS TAREAS AQUÍ (// TODO PASO 4C):
-//   1. Calcula `subtotal` (`price * quantity`) y `totalUnits` (`quantity`) con `.reduce(...)`.
-//   2. En `handleDecrease(item)`: si `item.quantity <= 1`, abre el modal con
-//      `setItemPendingDelete(item)`; si no, llama `updateQuantity(item.id, item.quantity - 1)`.
-//   3. En `handleIncrease(item)`: llama `updateQuantity(item.id, item.quantity + 1)`.
-//      Si retorna `!res.ok`, muestra `res.reason` con `showToast(...)`.
-//   4. En `DeleteConfirmModal` (`onConfirm`): elimina con `removeItem(itemPendingDelete.id)`.
-// =============================================================================
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { DeleteConfirmModal } from '../components/cart/DeleteConfirmModal';
-import { LearningBanner } from '../components/common/LearningBanner';
+import { CheckoutStepper } from '../components/common/CheckoutStepper';
 import { getStockByVariant } from '../data/mock-catalog';
 import { formatCurrency, useCartStore } from '../stores/use-cart-store';
 import type { CartItem } from '../types/ecommerce';
@@ -54,38 +40,32 @@ export function CartPage() {
 
   return (
     <div className="aty-container aty-page">
+      <CheckoutStepper activeStep={1} />
+
       <div className="aty-page-head">
         <div>
-          <span className="aty-eyebrow">AUDITORÍA DE COMPRA // ZUSTAND</span>
-          <h1>Tu Bolsa de Compras ({totalUnits})</h1>
+          <span className="aty-eyebrow">BOLSA DE COMPRA // RESUMEN</span>
+          <h1>Tu Bolsa ({totalUnits})</h1>
         </div>
         <Link to="/" className="aty-btn aty-btn--outline aty-btn--sm">
           ← Seguir explorando
         </Link>
       </div>
 
-      <LearningBanner
-        step="PASO 6 · BOLSA Y MODAL PREVENTIVO"
-        title="Store Zustand + DeleteConfirmModal (Regla RN-08)"
-        tools={['useCartStore', 'getStockByVariant()', 'DeleteConfirmModal']}
-        description="Si incrementas cantidades, se valida contra el diccionario de stock. Si presionas 'Eliminar' o reduces de 1 a 0, aparece el modal de confirmación: cancelar conserva el ítem y confirmar lo borra actualizando el subtotal."
-      />
-
       {items.length === 0 ? (
         <div className="aty-empty-box">
           <h2>Tu bolsa está vacía</h2>
           <p>
-            Añade prendas desde el catálogo para probar las variaciones de talla,
-            el control de inventario y el checkout.
+            Explora nuestras piezas heavyweight y selecciona tu talla para iniciar
+            tu pedido en Atypico Studio.
           </p>
           <Link to="/" className="aty-btn aty-btn--primary">
-            Ver catálogo de prendas
+            Ver colección completa
           </Link>
         </div>
       ) : (
         <div className="aty-two-col">
-          {/* Lista de ítems en bolsa */}
-          <section className="aty-cart-list" aria-label="Prendas en la bolsa">
+          <section className="aty-cart-list" aria-label="Prendas en tu bolsa">
             {items.map((item) => {
               const maxStock = getStockByVariant(item.productId, item.size);
               const atLimit = item.quantity >= maxStock;
@@ -108,8 +88,7 @@ export function CartPage() {
                           </Link>
                         </h2>
                         <p className="aty-cart-row__meta">
-                          Talla: <strong>{item.size}</strong> · Color:{' '}
-                          <strong>{item.color}</strong>
+                          Talla <strong>{item.size}</strong> · {item.color}
                         </p>
                       </div>
                       <strong className="aty-cart-row__line-price aty-tabular">
@@ -138,8 +117,7 @@ export function CartPage() {
                           </button>
                         </div>
                         <span className="aty-muted-xs">
-                          Unitario: {formatCurrency(item.price)} · Stock máx:{' '}
-                          <strong>{maxStock}</strong>
+                          Unitario: {formatCurrency(item.price)} · Máx. {maxStock} u.
                         </span>
                       </div>
 
@@ -165,9 +143,8 @@ export function CartPage() {
             })}
           </section>
 
-          {/* Resumen financiero lateral */}
           <aside className="aty-summary-panel" aria-label="Resumen de bolsa">
-            <h2>Resumen de la Bolsa</h2>
+            <h2>Resumen de Compra</h2>
 
             <div className="aty-summary-rows">
               <div className="aty-summary-line">
@@ -175,13 +152,13 @@ export function CartPage() {
                 <strong className="aty-tabular">{formatCurrency(subtotal)}</strong>
               </div>
               <div className="aty-summary-line">
-                <span>Envío estimado</span>
-                <span>Desde $3.50 (en checkout)</span>
+                <span>Envío estándar</span>
+                <span>Desde $3.50</span>
               </div>
             </div>
 
             <div className="aty-summary-total">
-              <span>Subtotal neto</span>
+              <span>Subtotal</span>
               <strong className="aty-tabular">{formatCurrency(subtotal)}</strong>
             </div>
 

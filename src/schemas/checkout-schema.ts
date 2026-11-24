@@ -1,7 +1,3 @@
-// =============================================================================
-// 🧭 PASO 5A: Reglas de Validación con Zod v4
-// =============================================================================
-
 import { z } from 'zod/v4';
 
 export const SHIPPING_RATES: { ESTANDAR: number; NACIONAL: number } = {

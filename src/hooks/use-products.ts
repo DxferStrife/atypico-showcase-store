@@ -1,9 +1,3 @@
-
-//   - `queryKey` identifica la petición en caché.
-//   - `queryFn` pasa la función que devuelve una Promise (`fetchProductsCatalog`
-//     y `() => fetchProductById(productId!)`).
-
-
 import { useQuery } from '@tanstack/react-query';
 import { fetchProductById, fetchProductsCatalog } from '../services/product-service';
 

@@ -1,21 +1,16 @@
-// 🧭 PASO 1: Datos Moqueados — Lista de Productos + Diccionario Clave-Valor de Stock
-// -----------------------------------------------------------------------------
-// Este archivo separa explícitamente el catálogo descriptivo (PRODUCTS_LIST)
-// del inventario disponible por talla (PRODUCT_STOCK_DICTIONARY), siguiendo el
-// patrón clave-valor pedido para practicar consultas por ID y control de stock.
-
 import type { Product, Size, StockDictionary } from '../types/ecommerce';
 
 /**
- * Crea ilustraciones SVG urbanas en data-URI limpias y de alto contraste
- * para garantizar que las imágenes del prototipo carguen 100% offline y rápido.
+ * Genera láminas lookbook vectoriales de alto contraste con retícula técnica,
+ * marcas de registro y detalles de confección para la galería del catálogo.
  */
 function createEditorialArtwork(
   label: string,
   subtitle: string,
   bgHex: string,
   accentHex: string,
-  silhouette: 'hoodie' | 'tee' | 'cargo' | 'cap' | 'bag'
+  silhouette: 'hoodie' | 'tee' | 'cargo' | 'cap' | 'bag',
+  editionCode = 'SERIES 03'
 ): string {
   const shapes: {
     hoodie: string;
@@ -24,27 +19,36 @@ function createEditorialArtwork(
     cap: string;
     bag: string;
   } = {
-    hoodie: `<path d="M130 120 L185 95 L215 110 L245 95 L300 120 L340 210 L300 228 L278 175 L278 360 L152 360 L152 175 L130 228 L90 210 Z" fill="${accentHex}" opacity="0.92"/><rect x="175" y="240" width="80" height="48" rx="6" fill="none" stroke="${bgHex}" stroke-width="4"/><circle cx="215" cy="96" r="24" fill="none" stroke="${accentHex}" stroke-width="10"/>`,
-    tee: `<path d="M125 115 L175 95 Q215 122 255 95 L305 115 L345 188 L302 208 L278 165 L278 355 L152 355 L152 165 L128 208 L85 188 Z" fill="${accentHex}" opacity="0.92"/><line x1="168" y1="205" x2="262" y2="205" stroke="${bgHex}" stroke-width="4"/>`,
-    cargo: `<path d="M148 95 L282 95 L298 365 L235 365 L215 215 L195 365 L132 365 Z" fill="${accentHex}" opacity="0.92"/><rect x="132" y="200" width="38" height="62" rx="3" fill="${bgHex}" opacity="0.35"/><rect x="260" y="200" width="38" height="62" rx="3" fill="${bgHex}" opacity="0.35"/>`,
-    cap: `<path d="M120 230 C120 140 310 140 310 230 L345 255 C280 272 150 270 115 245 Z" fill="${accentHex}" opacity="0.92"/><line x1="145" y1="225" x2="295" y2="225" stroke="${bgHex}" stroke-width="4"/>`,
-    bag: `<rect x="130" y="150" width="170" height="190" rx="14" fill="${accentHex}" opacity="0.92"/><path d="M165 150 C165 90 265 90 265 150" fill="none" stroke="${accentHex}" stroke-width="12"/><rect x="155" y="215" width="120" height="75" rx="6" fill="none" stroke="${bgHex}" stroke-width="4"/>`,
+    hoodie: `<path d="M126 122 L184 94 L215 112 L246 94 L304 122 L346 212 L302 232 L280 176 L280 356 L150 356 L150 176 L128 232 L84 212 Z" fill="${accentHex}" fill-opacity="0.94"/><path d="M150 176 L150 356 M280 176 L280 356 M184 94 Q215 130 246 94" fill="none" stroke="${bgHex}" stroke-width="2.5" opacity="0.55"/><rect x="173" y="238" width="84" height="52" rx="6" fill="none" stroke="${bgHex}" stroke-width="3.5"/><path d="M178 102 C188 70 242 70 252 102" fill="none" stroke="${accentHex}" stroke-width="11" stroke-linecap="round"/>`,
+    tee: `<path d="M122 116 L174 94 Q215 124 256 94 L308 116 L348 188 L304 210 L280 166 L280 354 L150 354 L150 166 L126 210 L82 188 Z" fill="${accentHex}" fill-opacity="0.94"/><path d="M168 100 Q215 132 262 100" fill="none" stroke="${bgHex}" stroke-width="4"/><line x1="164" y1="196" x2="266" y2="196" stroke="${bgHex}" stroke-width="3" opacity="0.7"/><line x1="150" y1="336" x2="280" y2="336" stroke="${bgHex}" stroke-width="2" stroke-dasharray="6 4" opacity="0.5"/>`,
+    cargo: `<path d="M146 94 L284 94 L302 362 L236 362 L215 212 L194 362 L128 362 Z" fill="${accentHex}" fill-opacity="0.94"/><rect x="128" y="196" width="40" height="66" rx="4" fill="${bgHex}" fill-opacity="0.34" stroke="${bgHex}" stroke-width="2"/><rect x="262" y="196" width="40" height="66" rx="4" fill="${bgHex}" fill-opacity="0.34" stroke="${bgHex}" stroke-width="2"/><line x1="148" y1="120" x2="282" y2="120" stroke="${bgHex}" stroke-width="2.5" opacity="0.5"/>`,
+    cap: `<path d="M118 232 C118 136 312 136 312 232 L348 256 C282 276 148 274 112 246 Z" fill="${accentHex}" fill-opacity="0.94"/><path d="M166 154 L215 224 L264 154" fill="none" stroke="${bgHex}" stroke-width="2.5" opacity="0.45"/><line x1="142" y1="226" x2="298" y2="226" stroke="${bgHex}" stroke-width="3.5"/>`,
+    bag: `<rect x="128" y="150" width="174" height="190" rx="14" fill="${accentHex}" fill-opacity="0.94"/><path d="M164 150 C164 88 266 88 266 150" fill="none" stroke="${accentHex}" stroke-width="11"/><rect x="154" y="212" width="122" height="78" rx="6" fill="none" stroke="${bgHex}" stroke-width="3.5"/><line x1="154" y1="234" x2="276" y2="234" stroke="${bgHex}" stroke-width="2.5" opacity="0.6"/>`,
   };
 
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 480">
+    <defs>
+      <pattern id="aty-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+        <path d="M 28 0 L 0 0 0 28" fill="none" stroke="${accentHex}" stroke-opacity="0.06" stroke-width="1"/>
+      </pattern>
+    </defs>
     <rect width="430" height="480" fill="${bgHex}"/>
-    <rect x="18" y="18" width="394" height="444" fill="none" stroke="${accentHex}" stroke-opacity="0.22" stroke-width="1.5"/>
+    <rect width="430" height="480" fill="url(#aty-grid)"/>
+    <rect x="18" y="18" width="394" height="444" fill="none" stroke="${accentHex}" stroke-opacity="0.24" stroke-width="1.2"/>
+    <path d="M18 32 L18 18 L32 18 M398 18 L412 18 L412 32 M18 448 L18 462 L32 462 M398 462 L412 462 L412 448" fill="none" stroke="${accentHex}" stroke-opacity="0.55" stroke-width="2"/>
     ${shapes[silhouette]}
-    <text x="34" y="54" font-family="monospace" font-size="13" font-weight="700" fill="${accentHex}" letter-spacing="2">ATYPICO // STUDIO</text>
-    <text x="34" y="424" font-family="sans-serif" font-size="18" font-weight="800" fill="${accentHex}">${label}</text>
-    <text x="34" y="446" font-family="monospace" font-size="12" fill="${accentHex}" opacity="0.72">${subtitle}</text>
+    <text x="34" y="52" font-family="monospace" font-size="12" font-weight="700" fill="${accentHex}" letter-spacing="2.2">ATYPICO // STUDIO</text>
+    <text x="396" y="52" text-anchor="end" font-family="monospace" font-size="11" font-weight="700" fill="${accentHex}" opacity="0.72" letter-spacing="1.5">${editionCode}</text>
+    <line x1="34" y1="392" x2="396" y2="392" stroke="${accentHex}" stroke-opacity="0.22" stroke-width="1"/>
+    <text x="34" y="422" font-family="sans-serif" font-size="18" font-weight="800" fill="${accentHex}" letter-spacing="-0.3">${label}</text>
+    <text x="34" y="444" font-family="monospace" font-size="11" fill="${accentHex}" opacity="0.78" letter-spacing="0.8">${subtitle}</text>
   </svg>`;
 
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 }
 
 /**
- * 1) LISTA DE PRODUCTOS (Información descriptiva, precios y variantes)
+ * Catálogo oficial de prendas de la cápsula actual.
  */
 export const PRODUCTS_LIST: Product[] = [
   {
@@ -60,9 +64,9 @@ export const PRODUCTS_LIST: Product[] = [
     defaultColor: 'Negro Tinta',
     badge: 'TOP DROP',
     gallery: [
-      createEditorialArtwork('OBSIDIAN BOXY TEE', 'FRONT // 280 GSM HEAVYWEIGHT', '#121212', '#F7F6F2', 'tee'),
-      createEditorialArtwork('DETALLE TEXTIL', 'CUELLO RIB 3CM + COSTURA DOBLE', '#E35336', '#0D0D0D', 'tee'),
-      createEditorialArtwork('BACK PRINT EDITION', 'SILUETA CUADRADA URBANA', '#242320', '#E35336', 'tee'),
+      createEditorialArtwork('OBSIDIAN BOXY TEE', 'FRONT // 280 GSM HEAVYWEIGHT', '#121212', '#F7F6F2', 'tee', '280 GSM'),
+      createEditorialArtwork('DETALLE TEXTIL', 'CUELLO RIB 3CM + COSTURA DOBLE', '#BF381D', '#FFFFFF', 'tee', '02 / 03'),
+      createEditorialArtwork('BACK EDITION', 'SILUETA CUADRADA URBANA', '#242320', '#E35336', 'tee', '03 / 03'),
     ],
     measurements: {
       S: { chestCm: 56, lengthCm: 67, shoulderCm: 52 },
@@ -85,9 +89,9 @@ export const PRODUCTS_LIST: Product[] = [
     defaultColor: 'Gris Concreto',
     badge: 'LIMITED',
     gallery: [
-      createEditorialArtwork('CONCRETE HOODIE', '440 GSM FRENCH TERRY', '#2B2A27', '#F7F6F2', 'hoodie'),
-      createEditorialArtwork('CAPUCHA DOBLE', 'SIN CORDONES · ESTÉTICA LIMPIA', '#0D0D0D', '#E35336', 'hoodie'),
-      createEditorialArtwork('FIT STUDIO', 'CAÍDA RELAJADA DE HOMBROS', '#EAE6DC', '#111111', 'hoodie'),
+      createEditorialArtwork('CONCRETE HOODIE', '440 GSM FRENCH TERRY', '#2B2A27', '#F7F6F2', 'hoodie', '440 GSM'),
+      createEditorialArtwork('CAPUCHA DOBLE', 'SIN CORDONES · ESTÉTICA LIMPIA', '#0D0D0D', '#E35336', 'hoodie', '02 / 03'),
+      createEditorialArtwork('STUDIO FIT', 'CAÍDA RELAJADA DE HOMBROS', '#EAE6DC', '#111111', 'hoodie', '03 / 03'),
     ],
     measurements: {
       S: { chestCm: 60, lengthCm: 68, shoulderCm: 56 },
@@ -110,9 +114,9 @@ export const PRODUCTS_LIST: Product[] = [
     defaultColor: 'Pizarra Oscuro',
     badge: 'BESTSELLER',
     gallery: [
-      createEditorialArtwork('TACTICAL CARGO', 'RIPSTOP 310 GSM · 6 BOLSILLOS', '#1D2024', '#F7F6F2', 'cargo'),
-      createEditorialArtwork('FUELLE LATERAL', 'PINZAS ARTICULADAS EN RODILLA', '#E35336', '#0D0D0D', 'cargo'),
-      createEditorialArtwork('AJUSTE TOBILLO', 'CORDÓN TENSOR DE BAJOS', '#EFECE6', '#111111', 'cargo'),
+      createEditorialArtwork('TACTICAL CARGO', 'RIPSTOP 310 GSM · 6 BOLSILLOS', '#1D2024', '#F7F6F2', 'cargo', '310 GSM'),
+      createEditorialArtwork('FUELLE LATERAL', 'PINZAS ARTICULADAS EN RODILLA', '#BF381D', '#FFFFFF', 'cargo', '02 / 03'),
+      createEditorialArtwork('AJUSTE TOBILLO', 'CORDÓN TENSOR DE BAJOS', '#EFECE6', '#111111', 'cargo', '03 / 03'),
     ],
     measurements: {
       S: { chestCm: 39, lengthCm: 101, shoulderCm: 29 },
@@ -134,8 +138,8 @@ export const PRODUCTS_LIST: Product[] = [
     colors: ['Verde Oliva', 'Negro Lavado'],
     defaultColor: 'Verde Oliva',
     gallery: [
-      createEditorialArtwork('WIDE OLIVE CARGO', 'BAGGY FIT · LAVADO VINTAGE', '#353C2C', '#F7F6F2', 'cargo'),
-      createEditorialArtwork('BROCHE OCULTO', 'GABARDINA DE ALTO TRÁFICO', '#111111', '#E35336', 'cargo'),
+      createEditorialArtwork('WIDE OLIVE CARGO', 'BAGGY FIT · LAVADO VINTAGE', '#353C2C', '#F7F6F2', 'cargo', 'SERIES 03'),
+      createEditorialArtwork('BROCHE OCULTO', 'GABARDINA DE ALTO TRÁFICO', '#111111', '#E35336', 'cargo', '02 / 02'),
     ],
     measurements: {
       S: { chestCm: 40, lengthCm: 102, shoulderCm: 30 },
@@ -157,8 +161,8 @@ export const PRODUCTS_LIST: Product[] = [
     colors: ['Carbón Lavado', 'Terracota'],
     defaultColor: 'Carbón Lavado',
     gallery: [
-      createEditorialArtwork('STUDIO CAP 01', 'BORDADO 3D · LONA 12 OZ', '#1A1917', '#E35336', 'cap'),
-      createEditorialArtwork('HEBILLA METÁLICA', 'CORONA BAJA DESESTRUCTURADA', '#EFECE6', '#0D0D0D', 'cap'),
+      createEditorialArtwork('STUDIO CAP 01', 'BORDADO 3D · LONA 12 OZ', '#1A1917', '#E35336', 'cap', '12 OZ'),
+      createEditorialArtwork('HEBILLA METÁLICA', 'CORONA BAJA DESESTRUCTURADA', '#EFECE6', '#0D0D0D', 'cap', '02 / 02'),
     ],
     measurements: {
       S: { chestCm: 55, lengthCm: 11, shoulderCm: 16 },
@@ -181,8 +185,8 @@ export const PRODUCTS_LIST: Product[] = [
     defaultColor: 'Negro Técnico',
     badge: 'NEW',
     gallery: [
-      createEditorialArtwork('UTILITY CROSSBODY', 'NYLON BALÍSTICO REPELENTE', '#0D0D0D', '#F7F6F2', 'bag'),
-      createEditorialArtwork('CIERRE SELLADO', 'BOLSILLO DE ACCESO RÁPIDO', '#E35336', '#0D0D0D', 'bag'),
+      createEditorialArtwork('UTILITY CROSSBODY', 'NYLON BALÍSTICO REPELENTE', '#0D0D0D', '#F7F6F2', 'bag', '600D'),
+      createEditorialArtwork('CIERRE SELLADO', 'BOLSILLO DE ACCESO RÁPIDO', '#BF381D', '#FFFFFF', 'bag', '02 / 02'),
     ],
     measurements: {
       S: { chestCm: 22, lengthCm: 16, shoulderCm: 7 },
@@ -195,9 +199,7 @@ export const PRODUCTS_LIST: Product[] = [
 ];
 
 /**
- * 2) DICCIONARIO CLAVE-VALOR DE STOCK (productId -> { S, M, L, XL })
- * Incluye intencionalmente tallas en 0 y tallas con pocas unidades (1, 2, 3)
- * para probar el bloqueo preventivo tanto en el catálogo como en detalle y bolsa.
+ * Inventario por prenda y talla (`productId -> { S, M, L, XL }`).
  */
 export const PRODUCT_STOCK_DICTIONARY: StockDictionary = {
   'tee-boxy-obsidian': { S: 3, M: 5, L: 2, XL: 0 },
@@ -208,16 +210,10 @@ export const PRODUCT_STOCK_DICTIONARY: StockDictionary = {
   'bag-crossbody-nylon': { S: 2, M: 5, L: 3, XL: 1 },
 };
 
-/**
- * Helper puro para consultar cuántas unidades existen para una prenda y talla.
- */
 export function getStockByVariant(productId: string, size: Size): number {
   return PRODUCT_STOCK_DICTIONARY[productId]?.[size] ?? 0;
 }
 
-/**
- * Helper puro para sumar el stock total disponible de una prenda en todas sus tallas.
- */
 export function getTotalProductStock(productId: string): number {
   const sizesMap = PRODUCT_STOCK_DICTIONARY[productId];
   if (!sizesMap) return 0;

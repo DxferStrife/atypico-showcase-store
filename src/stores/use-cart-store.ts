@@ -1,7 +1,3 @@
-// =============================================================================
-// 🧭 PASO 3: Store Global del Cliente con Zustand
-// =============================================================================
-
 import { create } from 'zustand';
 import { getStockByVariant } from '../data/mock-catalog';
 import type {
@@ -20,12 +16,10 @@ type AddItemResult = {
 type CartStoreState = {
   items: CartItem[];
   isDrawerOpen: boolean;
-  showLearningGuides: boolean;
   toastMessage: string | null;
   lastConfirmedOrder: OrderSnapshot | null;
 
   setDrawerOpen: (open: boolean) => void;
-  toggleLearningGuides: () => void;
   clearToast: () => void;
   showToast: (message: string) => void;
 
@@ -52,13 +46,10 @@ export function formatCurrency(amount: number): string {
 export const useCartStore = create<CartStoreState>((set, get) => ({
   items: [],
   isDrawerOpen: false,
-  showLearningGuides: true,
   toastMessage: null,
   lastConfirmedOrder: null,
 
   setDrawerOpen: (open) => set({ isDrawerOpen: open }),
-  toggleLearningGuides: () =>
-    set((state) => ({ showLearningGuides: !state.showLearningGuides })),
   clearToast: () => set({ toastMessage: null }),
   showToast: (message) => set({ toastMessage: message }),
 
@@ -67,7 +58,7 @@ export const useCartStore = create<CartStoreState>((set, get) => ({
     if (availableStock <= 0) {
       return {
         ok: false,
-        reason: `La talla ${size} está agotada en el diccionario de stock.`,
+        reason: `La talla ${size} se encuentra temporalmente agotada.`,
       };
     }
 
@@ -83,8 +74,8 @@ export const useCartStore = create<CartStoreState>((set, get) => ({
         ok: false,
         reason:
           remaining === 0
-            ? `Ya tienes el máximo disponible (${availableStock} u.) de talla ${size} en tu bolsa.`
-            : `Solo quedan ${remaining} unidades disponibles adicionales en talla ${size} (stock total: ${availableStock}).`,
+            ? `Alcanzaste el límite de inventario disponible (${availableStock} u.) para la talla ${size}.`
+            : `Solo quedan ${remaining} unidades adicionales disponibles en talla ${size}.`,
       };
     }
 
@@ -108,7 +99,7 @@ export const useCartStore = create<CartStoreState>((set, get) => ({
 
     set({
       items: updatedItems,
-      toastMessage: `Añadiste ${quantity}x ${product.name} (Talla ${size}) a la bolsa.`,
+      toastMessage: `${quantity}× ${product.name} (Talla ${size}) añadido a tu bolsa.`,
     });
 
     return { ok: true };
@@ -117,21 +108,21 @@ export const useCartStore = create<CartStoreState>((set, get) => ({
   updateQuantity: (itemId, nextQuantity) => {
     const target = get().items.find((entry) => entry.id === itemId);
     if (!target) {
-      return { ok: false, reason: 'Prenda no encontrada en la bolsa.' };
+      return { ok: false, reason: 'No encontramos esa prenda en tu bolsa.' };
     }
 
     const maxStock = getStockByVariant(target.productId, target.size);
     if (nextQuantity > maxStock) {
       return {
         ok: false,
-        reason: `Stock máximo disponible para talla ${target.size}: ${maxStock} unidades.`,
+        reason: `Disponibilidad máxima para la talla ${target.size}: ${maxStock} unidades.`,
       };
     }
 
     if (nextQuantity < 1) {
       return {
         ok: false,
-        reason: 'Usa el modal de confirmación preventiva para eliminar la prenda.',
+        reason: 'Confirma si deseas retirar esta prenda de tu bolsa.',
       };
     }
 
@@ -146,7 +137,7 @@ export const useCartStore = create<CartStoreState>((set, get) => ({
   removeItem: (itemId) =>
     set((state) => ({
       items: state.items.filter((entry) => entry.id !== itemId),
-      toastMessage: 'Prenda eliminada de la bolsa y subtotal actualizado.',
+      toastMessage: 'Prenda retirada de la bolsa.',
     })),
 
   clearCart: () => set({ items: [] }),
@@ -171,7 +162,6 @@ export const useCartStore = create<CartStoreState>((set, get) => ({
       total: subtotal + shippingCost,
     };
 
-    // RN-12: Vaciamos la bolsa al confirmar, pero conservamos lastConfirmedOrder
     set({
       lastConfirmedOrder: snapshot,
       items: [],

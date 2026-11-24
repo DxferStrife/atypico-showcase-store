@@ -248,7 +248,9 @@ actions.complete(actionId, 'Plan defined — delegating to explorer')
 
 ### 7. Delegate in order
 
-Invoke: **Explorer** → **Consultant** (conditional) → **Builder** → **Reviewer**
+Invoke: **Explorer** → **Consultant** (conditional) → **Builder** → **UX Auditor (`custom:ux-auditor`, whenever UI/CSS/`DESIGN.md` is touched)** → **Reviewer**
+
+For any task that creates or modifies UI views, CSS, tokens, layout, contrast, borders, or `DESIGN.md`, you MUST invoke `/ux-auditor` (`ahk-ux-audit`) after `Builder` and require an `APPROVED` UX report before delegating to `Reviewer`. If `custom:ux-auditor` returns `BLOCKED`, send `Builder` back to resolve every `CRITICAL`/`MAJOR` finding first.
 
 After delegating to explorer, review their findings for installed version evidence. Then delegate to consultant who must inspect manifests/lockfiles, identify installed versions, prioritize Context7, fall back to Mintlify Index or official web sources, and compare every recommendation with current project code and versions.
 

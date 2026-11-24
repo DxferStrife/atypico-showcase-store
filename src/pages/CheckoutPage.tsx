@@ -1,23 +1,29 @@
-// =============================================================================
-// 🧭 PASO 5B: Lógica de Formulario con @mantine/form + Zod v4
-// =============================================================================
-// Los campos HTML y mensajes de error visuales ya están maquetados con CSS puro.
-//
-// TUS TAREAS AQUÍ (// TODO PASO 5B):
-//   1. Conecta `schemaResolver(checkoutSchema, { sync: true })` en `useForm` y
-//      activa `validateInputOnChange: true` para validar en tiempo real.
-//   2. Calcula `subtotal`, `shippingCost` (leyendo `SHIPPING_RATES[form.values.shippingZone]`)
-//      y `total = subtotal + shippingCost`.
-//   3. En `handleSubmit`: llama `const order = confirmOrder(validatedValues, shippingCost)`
-//      y redirige con `navigate(\`/confirmacion/${order.orderId}\`)`.
-// =============================================================================
-
 import { useForm, schemaResolver } from '@mantine/form';
 import { Link, useNavigate } from 'react-router';
-import { LearningBanner } from '../components/common/LearningBanner';
+import { CheckoutStepper } from '../components/common/CheckoutStepper';
 import { checkoutSchema, SHIPPING_RATES } from '../schemas/checkout-schema';
 import { formatCurrency, useCartStore } from '../stores/use-cart-store';
 import type { CheckoutFormValues } from '../types/ecommerce';
+
+const SHIPPING_OPTIONS: Array<{
+  value: 'ESTANDAR' | 'NACIONAL';
+  title: string;
+  eta: string;
+  price: number;
+}> = [
+  {
+    value: 'ESTANDAR',
+    title: 'Envío Estándar Urbano',
+    eta: 'Entrega 24–48 horas',
+    price: SHIPPING_RATES.ESTANDAR,
+  },
+  {
+    value: 'NACIONAL',
+    title: 'Envío Nacional Courier',
+    eta: 'Entrega 48–72 horas',
+    price: SHIPPING_RATES.NACIONAL,
+  },
+];
 
 export function CheckoutPage() {
   const navigate = useNavigate();
@@ -53,14 +59,15 @@ export function CheckoutPage() {
   if (items.length === 0) {
     return (
       <div className="aty-container aty-page">
+        <CheckoutStepper activeStep={2} />
         <div className="aty-empty-box">
-          <h2>Tu bolsa está vacía</h2>
+          <h1>Tu bolsa está vacía</h1>
           <p>
-            Necesitas agregar al menos una prenda antes de completar tus datos
-            de entrega en el checkout.
+            Añade al menos una prenda de la colección antes de completar tus datos
+            de envío.
           </p>
           <Link to="/" className="aty-btn aty-btn--primary">
-            Volver al catálogo
+            Explorar colección
           </Link>
         </div>
       </div>
@@ -69,28 +76,22 @@ export function CheckoutPage() {
 
   return (
     <div className="aty-container aty-page">
+      <CheckoutStepper activeStep={2} />
+
       <div className="aty-page-head">
         <div>
-          <span className="aty-eyebrow">PASO FINAL // DATOS Y LIQUIDACIÓN</span>
-          <h1>Checkout y Entrega</h1>
+          <span className="aty-eyebrow">FINALIZAR COMPRA // ENVÍO</span>
+          <h1>Datos de Entrega</h1>
         </div>
         <Link to="/carrito" className="aty-btn aty-btn--outline aty-btn--sm">
           ← Editar bolsa
         </Link>
       </div>
 
-      <LearningBanner
-        step="PASO 7 · CHECKOUT (@mantine/form + Zod v4)"
-        title="Validación en tiempo real con CSS puro en :root"
-        tools={['useForm()', 'schemaResolver(checkoutSchema, { sync: true })', 'validateInputOnChange: true']}
-        description="Mantine Form administra solo la lógica y errores del formulario (sin estilos de Mantine UI). Prueba escribir un nombre corto, un celular de menos de 10 dígitos o una dirección breve para ver el feedback rojo instantáneo."
-      />
-
       <div className="aty-two-col">
         <form className="aty-form-card" onSubmit={handleSubmit} noValidate>
-          <h2 className="aty-form-card__title">Datos del Comprador y Entrega</h2>
+          <h2 className="aty-form-card__title">Información de Contacto y Envío</h2>
 
-          {/* Campo 1: Nombre completo (>= 3 caracteres) */}
           <div className="aty-field">
             <label htmlFor="checkout-fullName" className="aty-label">
               Nombre completo *
@@ -111,7 +112,6 @@ export function CheckoutPage() {
             )}
           </div>
 
-          {/* Campo 2: Celular (exactamente 10 dígitos) */}
           <div className="aty-field">
             <label htmlFor="checkout-phone" className="aty-label">
               Celular de contacto (10 dígitos) *
@@ -134,7 +134,6 @@ export function CheckoutPage() {
             )}
           </div>
 
-          {/* Campo 3: Dirección (>= 5 caracteres) */}
           <div className="aty-field">
             <label htmlFor="checkout-address" className="aty-label">
               Dirección exacta de entrega *
@@ -155,34 +154,44 @@ export function CheckoutPage() {
             )}
           </div>
 
-          {/* Campo 4: Costo de envío (Estándar único $3.50 por defecto u opción nacional $5.00) */}
+          {/* Radio cards seleccionables para cobertura de envío */}
           <div className="aty-field">
-            <label htmlFor="checkout-zone" className="aty-label">
-              Cobertura y tarifa de envío (RN-10)
-            </label>
-            <select
-              id="checkout-zone"
-              className="aty-input"
-              {...form.getInputProps('shippingZone')}
-            >
-              <option value="ESTANDAR">
-                Envío Estándar / Local ($3.50)
-              </option>
-              <option value="NACIONAL">
-                Envío Nacional Interprovincial ($5.00)
-              </option>
-            </select>
+            <span className="aty-label">Método y tarifa de envío</span>
+            <div className="aty-shipping-cards" role="radiogroup" aria-label="Método de envío">
+              {SHIPPING_OPTIONS.map((opt) => {
+                const isSelected = form.values.shippingZone === opt.value;
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    role="radio"
+                    aria-checked={isSelected}
+                    className={`aty-shipping-card ${
+                      isSelected ? 'is-active' : ''
+                    }`}
+                    onClick={() => form.setFieldValue('shippingZone', opt.value)}
+                  >
+                    <div>
+                      <strong>{opt.title}</strong>
+                      <span>{opt.eta}</span>
+                    </div>
+                    <strong className="aty-tabular">
+                      {formatCurrency(opt.price)}
+                    </strong>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Campo 5: Notas opcionales */}
           <div className="aty-field">
             <label htmlFor="checkout-notes" className="aty-label">
-              Referencias o notas de entrega (opcional)
+              Referencias de entrega (opcional)
             </label>
             <textarea
               id="checkout-notes"
               rows={3}
-              placeholder="Ej. Llamar al llegar a garita..."
+              placeholder="Ej. Llamar al llegar a recepción..."
               className={`aty-input ${
                 form.errors.notes ? 'aty-input--error' : ''
               }`}
@@ -196,9 +205,11 @@ export function CheckoutPage() {
           </div>
 
           <div className="aty-payment-note">
-            <strong>Método de pago (Demo Showcase):</strong> Transferencia
-            bancaria directa y validación del pedido en pantalla (sin pasarela
-            de tarjeta).
+            <strong>Pago por transferencia bancaria directa</strong>
+            <p>
+              Al confirmar recibirás el número de orden, las coordenadas bancarias y
+              tu comprobante listo para enviar por WhatsApp.
+            </p>
           </div>
 
           <button
@@ -209,18 +220,21 @@ export function CheckoutPage() {
           </button>
         </form>
 
-        {/* Resumen financiero visible y claro */}
-        <aside className="aty-summary-panel" aria-label="Resumen de liquidación">
-          <h2>Resumen del Pedido</h2>
+        {/* Resumen financiero lateral */}
+        <aside className="aty-summary-panel" aria-label="Resumen de pedido">
+          <h2>Tu Selección</h2>
 
           <ul className="aty-mini-order-list">
             {items.map((item) => (
               <li key={item.id} className="aty-mini-order-item">
-                <div>
-                  <strong>{item.name}</strong>
-                  <span>
-                    Talla {item.size} · {item.color} × {item.quantity}
-                  </span>
+                <div className="aty-mini-order-item__lead">
+                  <img src={item.imageUrl} alt={item.name} />
+                  <div>
+                    <strong>{item.name}</strong>
+                    <span>
+                      Talla {item.size} · {item.color} × {item.quantity}
+                    </span>
+                  </div>
                 </div>
                 <strong className="aty-tabular">
                   {formatCurrency(item.price * item.quantity)}

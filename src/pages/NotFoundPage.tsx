@@ -5,13 +5,13 @@ export function NotFoundPage() {
     <div className="aty-container aty-page">
       <div className="aty-empty-box">
         <span className="aty-eyebrow">ERROR 404 // RUTA NO ENCONTRADA</span>
-        <h1>Esta ruta no existe en el catálogo</h1>
+        <h1>Esta página no existe en Atypico Studio</h1>
         <p>
-          Verifica la URL o regresa a la colección principal de Atypico Showcase
-          Store.
+          Es posible que el enlace haya cambiado o que la pieza haya salido de
+          temporada. Regresa a la colección principal para seguir explorando.
         </p>
         <Link to="/" className="aty-btn aty-btn--primary">
-          Volver al inicio
+          Explorar colección
         </Link>
       </div>
     </div>

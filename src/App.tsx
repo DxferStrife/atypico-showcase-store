@@ -1,7 +1,3 @@
-// =============================================================================
-// 🧭 PASO 1: Enrutador Declarativo con React Router + TanStack Query Provider
-// =============================================================================
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { RootLayout } from './components/layout/RootLayout';

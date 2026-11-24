@@ -1,21 +1,5 @@
-// =============================================================================
-// 🧭 PASO 4B: Lógica de Detalle de Prenda, Stock Restante y Acción Dual
-// =============================================================================
-// Toda la interfaz visual (carrusel, tallas, cantidad, botones y popup de
-// prendas que combinan) ya está maquetada en el JSX de abajo.
-//
-// TUS TAREAS AQUÍ (// TODO PASO 4B):
-//   1. Calcular `stockForSelectedSize`, `alreadyInCartQty` y `remainingAvailable`
-//      descontando las unidades que ya están en Zustand (`items`).
-//   2. Implementar `handleSelectSize(size)` para cambiar talla y reiniciar `quantity` a 1.
-//   3. Implementar `handleAdd(goDirectToCheckout)` validando talla y stock restante,
-//      llamando `addItem(...)`, y navegando a `/checkout` o mostrando `setShowComplementaryPopup(true)`.
-//   4. Calcular `complementaryProducts` buscando en `PRODUCTS_LIST` los IDs de `product.complementaryIds`.
-// =============================================================================
-
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
-import { LearningBanner } from '../components/common/LearningBanner';
 import { PRODUCTS_LIST } from '../data/mock-catalog';
 import { useProductDetail } from '../hooks/use-products';
 import {
@@ -40,13 +24,13 @@ export function ProductDetailPage() {
   const [selectedSize, setSelectedSize] = useState<Size | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const [showComplementaryPopup, setShowComplementaryPopup] = useState(false);
+  const [justAddedToCart, setJustAddedToCart] = useState(false);
   const [feedbackError, setFeedbackError] = useState<string | null>(null);
 
   if (isPending) {
     return (
       <div className="aty-container aty-page">
-        <div className="aty-detail-skeleton">Cargando ficha de prenda...</div>
+        <div className="aty-detail-skeleton" aria-label="Cargando ficha de prenda" />
       </div>
     );
   }
@@ -55,10 +39,14 @@ export function ProductDetailPage() {
     return (
       <div className="aty-container aty-page">
         <div className="aty-empty-box">
-          <h2>Prenda no encontrada</h2>
-          <p>El identificador "{id}" no existe en el catálogo actual.</p>
+          <span className="aty-eyebrow">COLECCIÓN 03</span>
+          <h1>Prenda no disponible</h1>
+          <p>
+            No encontramos la pieza solicitada en nuestro catálogo activo. Explora
+            las siluetas disponibles en tienda.
+          </p>
           <Link to="/" className="aty-btn aty-btn--primary">
-            ← Volver al catálogo
+            ← Volver a la colección
           </Link>
         </div>
       </div>
@@ -67,7 +55,6 @@ export function ProductDetailPage() {
 
   const activeColor = selectedColor ?? product.defaultColor;
 
-  // Cálculo del stock disponible restante descontando lo que ya está en Zustand
   const stockForSelectedSize = selectedSize
     ? product.stockBySize[selectedSize] ?? 0
     : 0;
@@ -98,7 +85,7 @@ export function ProductDetailPage() {
 
     if (quantity > remainingAvailable) {
       setFeedbackError(
-        `No puedes agregar ${quantity} unidades. Solo quedan ${remainingAvailable} disponibles para la talla ${selectedSize}.`
+        `Solo quedan ${remainingAvailable} unidades disponibles para la talla ${selectedSize}.`
       );
       return;
     }
@@ -115,7 +102,7 @@ export function ProductDetailPage() {
     if (goDirectToCheckout) {
       navigate('/checkout');
     } else {
-      setShowComplementaryPopup(true);
+      setJustAddedToCart(true);
     }
   };
 
@@ -129,28 +116,24 @@ export function ProductDetailPage() {
   return (
     <div className="aty-container aty-page">
       <div className="aty-breadcrumb">
-        <Link to="/">← Volver al catálogo</Link>
+        <Link to="/">← Colección</Link>
         <span>/</span>
         <span>{product.category}</span>
         <span>/</span>
         <strong>{product.name}</strong>
       </div>
 
-      <LearningBanner
-        step="PASO 5B · DETALLE Y STOCK"
-        title="useParams() + Diccionario de Stock + Acción Zustand"
-        tools={['useProductDetail(id)', 'PRODUCT_STOCK_DICTIONARY[id][size]', 'useCartStore.addItem']}
-        description="El selector de cantidad nunca te dejará elegir ni agregar más unidades de las disponibles en el diccionario para la talla elegida (incluso si ya tienes unidades previas en la bolsa)."
-      />
-
       <div className="aty-detail-layout">
-        {/* Columna izquierda: Carrusel de imágenes */}
+        {/* Galería carrusel protagonista */}
         <section className="aty-carousel" aria-label="Galería de la prenda">
           <div className="aty-carousel__stage">
             <img
               src={product.gallery[safeImageIdx]}
               alt={`${product.name} vista ${safeImageIdx + 1}`}
             />
+            <span className="aty-carousel__counter aty-tabular">
+              0{safeImageIdx + 1} / 0{product.gallery.length}
+            </span>
             {product.gallery.length > 1 && (
               <>
                 <button
@@ -198,7 +181,7 @@ export function ProductDetailPage() {
           </div>
         </section>
 
-        {/* Columna derecha: Ficha técnica y compra */}
+        {/* Ficha técnica y selector de variante */}
         <section className="aty-detail-info">
           <div className="aty-detail-info__meta">
             <span className="aty-eyebrow">{product.category}</span>
@@ -216,19 +199,23 @@ export function ProductDetailPage() {
 
           <dl className="aty-specs-list">
             <div>
-              <dt>Corte / Fit</dt>
+              <dt>Corte</dt>
               <dd>{product.fit}</dd>
             </div>
             <div>
-              <dt>Composición</dt>
+              <dt>Tejido</dt>
               <dd>{product.composition}</dd>
+            </div>
+            <div>
+              <dt>Envío</dt>
+              <dd>Despacho en 24–48h · Estándar $3.50</dd>
             </div>
           </dl>
 
-          {/* Selector de color */}
+          {/* Color */}
           <div className="aty-selector-block">
             <span className="aty-selector-label">
-              Color: <strong>{activeColor}</strong>
+              Acabado: <strong>{activeColor}</strong>
             </span>
             <div className="aty-chip-row">
               {product.colors.map((color) => (
@@ -246,18 +233,23 @@ export function ProductDetailPage() {
             </div>
           </div>
 
-          {/* Selector de talla con lectura del diccionario clave-valor */}
+          {/* Talla */}
           <div className="aty-selector-block">
             <div className="aty-selector-head">
-              <span className="aty-selector-label">
-                Elige tu talla (Regla RN-05):
-              </span>
+              <span className="aty-selector-label">Talla:</span>
               {selectedSize && (
-                <span className="aty-stock-pill">
-                  Stock talla {selectedSize}: {stockForSelectedSize} u.
-                  {alreadyInCartQty > 0
-                    ? ` (${alreadyInCartQty} ya en bolsa · ${remainingAvailable} disp.)`
-                    : ''}
+                <span
+                  className={`aty-stock-pill ${
+                    remainingAvailable === 0 ? 'is-empty' : ''
+                  }`}
+                >
+                  {remainingAvailable === 0
+                    ? `Sin cupo restante en ${selectedSize}`
+                    : `Disponible · ${stockForSelectedSize} u.${
+                        alreadyInCartQty > 0
+                          ? ` (${alreadyInCartQty} en bolsa)`
+                          : ''
+                      }`}
                 </span>
               )}
             </div>
@@ -282,9 +274,37 @@ export function ProductDetailPage() {
                 );
               })}
             </div>
+
+            {/* Guía de medidas técnica */}
+            <details className="aty-size-guide">
+              <summary>Ver guía de medidas (cm)</summary>
+              <table className="aty-size-table">
+                <thead>
+                  <tr>
+                    <th>Talla</th>
+                    <th>Ancho</th>
+                    <th>Largo</th>
+                    <th>Hombro / Detalle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {SIZES.map((size) => {
+                    const row = product.measurements[size];
+                    return (
+                      <tr key={size}>
+                        <td>{size}</td>
+                        <td className="aty-tabular">{row.chestCm} cm</td>
+                        <td className="aty-tabular">{row.lengthCm} cm</td>
+                        <td className="aty-tabular">{row.shoulderCm} cm</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </details>
           </div>
 
-          {/* Selector de cantidad con bloqueo al stock máximo */}
+          {/* Cantidad */}
           <div className="aty-selector-block">
             <span className="aty-selector-label">Cantidad:</span>
             <div className="aty-qty-row">
@@ -308,7 +328,7 @@ export function ProductDetailPage() {
                   onClick={() => {
                     if (quantity >= remainingAvailable) {
                       showToast(
-                        `Límite alcanzado: máximo ${remainingAvailable} unidades para talla ${selectedSize}.`
+                        `Límite de inventario alcanzado: máximo ${remainingAvailable} u. en talla ${selectedSize}.`
                       );
                       return;
                     }
@@ -321,7 +341,8 @@ export function ProductDetailPage() {
               </div>
               {selectedSize && (
                 <span className="aty-muted-xs">
-                  Máximo agregable ahora: <strong>{remainingAvailable}</strong>{' '}
+                  Disponible para agregar:{' '}
+                  <strong>{remainingAvailable}</strong>{' '}
                   {remainingAvailable === 1 ? 'unidad' : 'unidades'}
                 </span>
               )}
@@ -334,7 +355,7 @@ export function ProductDetailPage() {
             </div>
           )}
 
-          {/* Botones duales lado a lado: Comprar ahora + Añadir a la bolsa */}
+          {/* Dual CTA de conversión */}
           <div className="aty-dual-cta">
             <button
               type="button"
@@ -356,30 +377,38 @@ export function ProductDetailPage() {
         </section>
       </div>
 
-      {/* Tarjeta emergente de sugerencias que combinan tras añadir al carrito */}
-      {showComplementaryPopup && complementaryProducts.length > 0 && (
+      {/* Confirmación contextual al agregar + Completa el look */}
+      {complementaryProducts.length > 0 && (
         <section
-          className="aty-complementary-card"
-          aria-label="Prendas sugeridas que combinan"
+          className={`aty-complementary-card ${
+            justAddedToCart ? 'is-highlighted' : ''
+          }`}
+          aria-label="Completa el look"
         >
           <div className="aty-complementary-card__head">
             <div>
-              <span className="aty-eyebrow">CROSS-SELLING // COMPLETA TU FIT</span>
-              <h3>Prendas que combinan con {product.name}</h3>
+              <span className="aty-eyebrow">
+                {justAddedToCart
+                  ? 'AÑADIDO A TU BOLSA // CURADURÍA DE ESTILO'
+                  : 'CURADURÍA // COMPLETA EL LOOK'}
+              </span>
+              <h2>Piezas que combinan con {product.name}</h2>
             </div>
-            <div className="aty-complementary-card__actions">
-              <Link to="/carrito" className="aty-btn aty-btn--primary aty-btn--sm">
-                Ir a la bolsa →
-              </Link>
-              <button
-                type="button"
-                className="aty-icon-btn"
-                onClick={() => setShowComplementaryPopup(false)}
-                aria-label="Cerrar sugerencias"
-              >
-                ✕
-              </button>
-            </div>
+            {justAddedToCart && (
+              <div className="aty-complementary-card__actions">
+                <Link to="/carrito" className="aty-btn aty-btn--primary aty-btn--sm">
+                  Ir a mi bolsa →
+                </Link>
+                <button
+                  type="button"
+                  className="aty-icon-btn"
+                  onClick={() => setJustAddedToCart(false)}
+                  aria-label="Minimizar aviso"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
           </div>
 
           <div className="aty-complementary-grid">
@@ -388,7 +417,7 @@ export function ProductDetailPage() {
                 key={comp.id}
                 to={`/producto/${comp.id}`}
                 onClick={() => {
-                  setShowComplementaryPopup(false);
+                  setJustAddedToCart(false);
                   setSelectedSize(null);
                   setSelectedColor(null);
                   setActiveImageIdx(0);

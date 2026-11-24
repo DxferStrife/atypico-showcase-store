@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, Outlet, useNavigate } from 'react-router';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router';
 import { formatCurrency, useCartStore } from '../../stores/use-cart-store';
 import type { CartItem } from '../../types/ecommerce';
 import { DeleteConfirmModal } from '../cart/DeleteConfirmModal';
 
-
 export function RootLayout() {
   const navigate = useNavigate();
+  const location = useLocation();
   const items = useCartStore((s) => s.items);
   const isDrawerOpen = useCartStore((s) => s.isDrawerOpen);
   const setDrawerOpen = useCartStore((s) => s.setDrawerOpen);
@@ -15,25 +15,43 @@ export function RootLayout() {
   const toastMessage = useCartStore((s) => s.toastMessage);
   const clearToast = useCartStore((s) => s.clearToast);
   const showToast = useCartStore((s) => s.showToast);
-  const showLearningGuides = useCartStore((s) => s.showLearningGuides);
-  const toggleLearningGuides = useCartStore((s) => s.toggleLearningGuides);
 
   const [itemPendingDelete, setItemPendingDelete] = useState<CartItem | null>(
     null
   );
 
-  // Calcula el total de unidades y el subtotal desde `items`
-  const totalCount = items.reduce((sum, item) => sum + item.quantity, 0)
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  const totalCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const subtotal = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
-  // Auto-cierre del toast informativo tras 3.2 segundos (ya listo)
   useEffect(() => {
     if (!toastMessage) return;
     const timer = setTimeout(() => clearToast(), 3200);
     return () => clearTimeout(timer);
   }, [toastMessage, clearToast]);
 
-  // Decrementa cantidad o abre el modal si la cantidad es 1
+  useEffect(() => {
+    if (!isDrawerOpen) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setDrawerOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isDrawerOpen, setDrawerOpen]);
+
+  const handleGoToSection = (sectionId: string) => {
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      }, 90);
+      return;
+    }
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const handleDrawerDecrease = (item: CartItem) => {
     if (item.quantity <= 1) {
       setItemPendingDelete(item);
@@ -42,7 +60,6 @@ export function RootLayout() {
     updateQuantity(item.id, item.quantity - 1);
   };
 
-  // Incrementa cantidad validando el stock en Zustand
   const handleDrawerIncrease = (item: CartItem) => {
     const res = updateQuantity(item.id, item.quantity + 1);
     if (!res.ok && res.reason) {
@@ -52,13 +69,22 @@ export function RootLayout() {
 
   return (
     <div className="aty-shell">
+      {/* Barra de anuncio superior de marca */}
+      <div className="aty-announcement">
+        <div className="aty-container aty-announcement__inner">
+          <span>DROP 03 // HEAVYWEIGHT SERIES</span>
+          <span>ENVÍO ESTÁNDAR DESDE $3.50 · DESPACHO EN 24–48H</span>
+        </div>
+      </div>
+
+      {/* Cabecera editorial sticky */}
       <header className="aty-header">
         <div className="aty-container aty-header__inner">
           <Link to="/" className="aty-brand">
             <span className="aty-brand__mark">A</span>
             <div>
               <span className="aty-brand__name">ATYPICO STUDIO</span>
-              <span className="aty-brand__sub">URBAN SHOWCASE STORE</span>
+              <span className="aty-brand__sub">HEAVYWEIGHT APPAREL</span>
             </div>
           </Link>
 
@@ -70,41 +96,31 @@ export function RootLayout() {
                 `aty-nav__link ${isActive ? 'is-active' : ''}`
               }
             >
-              Catálogo
+              Colección
             </NavLink>
+            <button
+              type="button"
+              className="aty-nav__link aty-nav__btn"
+              onClick={() => handleGoToSection('estudio')}
+            >
+              Estudio
+            </button>
             <NavLink
               to="/carrito"
               className={({ isActive }) =>
                 `aty-nav__link ${isActive ? 'is-active' : ''}`
               }
             >
-              Bolsa ({totalCount})
-            </NavLink>
-            <NavLink
-              to="/checkout"
-              className={({ isActive }) =>
-                `aty-nav__link ${isActive ? 'is-active' : ''}`
-              }
-            >
-              Checkout
+              Bolsa
             </NavLink>
           </nav>
 
           <div className="aty-header__actions">
             <button
               type="button"
-              className={`aty-chip-btn ${showLearningGuides ? 'is-active' : ''}`}
-              onClick={toggleLearningGuides}
-              title="Mostrar u ocultar pistas paso a paso del stack React"
-            >
-              {showLearningGuides ? '🧭 Pistas ON' : '🧭 Pistas OFF'}
-            </button>
-
-            <button
-              type="button"
               className="aty-cart-trigger"
               onClick={() => setDrawerOpen(true)}
-              aria-label={`Abrir vista rápida de bolsa (${totalCount} prendas)`}
+              aria-label={`Abrir bolsa de compra (${totalCount} prendas)`}
             >
               <span>Bolsa</span>
               <span className="aty-cart-badge">{totalCount}</span>
@@ -131,19 +147,61 @@ export function RootLayout() {
         <Outlet />
       </main>
 
+      {/* Footer insignia de estudio */}
       <footer className="aty-footer">
-        <div className="aty-container aty-footer__inner">
-          <div>
-            <strong>ATYPICO STUDIO // SHOWCASE E-COMMERCE</strong>
+        <div className="aty-container aty-footer__grid">
+          <div className="aty-footer__brand-col">
+            <div className="aty-brand">
+              <span className="aty-brand__mark">A</span>
+              <div>
+                <span className="aty-brand__name">ATYPICO STUDIO</span>
+                <span className="aty-brand__sub">DISEÑO TEXTIL &amp; DIGITAL</span>
+              </div>
+            </div>
             <p className="aty-footer__muted">
-              Prototipo técnico MVP · CSS puro con tokens en <code>:root</code> + React Router + TanStack Query + Zustand + Mantine Form &amp; Zod.
+              Prendas urbanas de alto gramaje confeccionadas en lotes controlados y
+              experiencias e-commerce construidas a medida.
             </p>
           </div>
-          <span className="aty-footer__badge">MODO DEMOSTRACIÓN BOOTCAMP</span>
+
+          <div className="aty-footer__col">
+            <h3>Colección</h3>
+            <ul className="aty-footer__links">
+              <li>
+                <Link to="/producto/tee-boxy-obsidian">Camiseta Boxy Obsidian</Link>
+              </li>
+              <li>
+                <Link to="/producto/hoodie-heavy-concrete">Hoodie Heavyweight 440g</Link>
+              </li>
+              <li>
+                <Link to="/producto/cargo-tactical-slate">Cargo Tactical Slate</Link>
+              </li>
+              <li>
+                <Link to="/producto/bag-crossbody-nylon">Crossbody Utility Ripstop</Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className="aty-footer__col">
+            <h3>Despacho &amp; Atención</h3>
+            <ul className="aty-footer__links">
+              <li>Envío local estándar: $3.50 (24–48h)</li>
+              <li>Envío nacional interprovincial: $5.00</li>
+              <li>Pagos por transferencia directa verificada</li>
+              <li>
+                <Link to="/carrito">Revisar mi bolsa ({totalCount})</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="aty-container aty-footer__bottom">
+          <span>© 2026 ATYPICO STUDIO. Todos los derechos reservados.</span>
+          <span className="aty-footer__badge">SERIES 03 // PRODUCTION STOREFRONT</span>
         </div>
       </footer>
 
-      {/* Drawer lateral de vista previa rápida de la bolsa */}
+      {/* Drawer lateral de bolsa */}
       {isDrawerOpen && (
         <div
           className="aty-drawer-backdrop"
@@ -154,12 +212,12 @@ export function RootLayout() {
             className="aty-drawer"
             role="dialog"
             aria-modal="true"
-            aria-label="Vista previa de bolsa de compras"
+            aria-label="Vista rápida de bolsa de compra"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="aty-drawer__header">
               <div>
-                <span className="aty-eyebrow">ZUSTAND STORE // VISTA RÁPIDA</span>
+                <span className="aty-eyebrow">ATYPICO STUDIO // CARRITO</span>
                 <h2 className="aty-drawer__title">Tu Bolsa ({totalCount})</h2>
               </div>
               <button
@@ -175,7 +233,7 @@ export function RootLayout() {
             <div className="aty-drawer__body">
               {items.length === 0 ? (
                 <div className="aty-empty-box">
-                  <p>Tu bolsa está vacía todavía.</p>
+                  <p>Tu bolsa está vacía en este momento.</p>
                   <button
                     type="button"
                     className="aty-btn aty-btn--primary"
@@ -242,7 +300,7 @@ export function RootLayout() {
                   <strong className="aty-tabular">{formatCurrency(subtotal)}</strong>
                 </div>
                 <p className="aty-muted-xs">
-                  El costo de envío ($3.50 estándar) se suma en el checkout.
+                  Costo de envío estándar desde $3.50 calculado al finalizar.
                 </p>
                 <div className="aty-drawer__cta-stack">
                   <button
@@ -253,7 +311,7 @@ export function RootLayout() {
                       navigate('/carrito');
                     }}
                   >
-                    Ver carrito completo (/carrito)
+                    Ver bolsa completa
                   </button>
                   <button
                     type="button"
@@ -263,7 +321,7 @@ export function RootLayout() {
                       navigate('/checkout');
                     }}
                   >
-                    Ir al Checkout →
+                    Finalizar compra →
                   </button>
                 </div>
               </div>

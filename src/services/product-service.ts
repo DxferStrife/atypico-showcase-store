@@ -1,13 +1,7 @@
-// 🧭 PASO 2: Servicio Asíncrono de Catálogo (Simulación limpia de fuente remota)
-// -----------------------------------------------------------------------------
-// Combina la lista de productos (PRODUCTS_LIST) con el diccionario de stock
-// (PRODUCT_STOCK_DICTIONARY) para que TanStack Query administre la carga, caché
-// y estados de la interfaz sin duplicar estos datos en Zustand.
-
 import { PRODUCT_STOCK_DICTIONARY, PRODUCTS_LIST } from '../data/mock-catalog';
 import type { ProductWithStock } from '../types/ecommerce';
 
-const SIMULATED_NETWORK_DELAY_MS = 180;
+const SIMULATED_NETWORK_DELAY_MS = 140;
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
