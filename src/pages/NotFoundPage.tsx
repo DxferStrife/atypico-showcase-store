@@ -1,7 +1,6 @@
 import { Link } from 'react-router';
 
 export function NotFoundPage() {
-  const codigoError: number = "404";
   return (
     <div className="aty-container aty-page">
       <div className="aty-empty-box">
