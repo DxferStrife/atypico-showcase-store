@@ -1,16 +1,17 @@
-name: CI - Atypico Studio Frontend
+name: CI - Quality Gate (Pull Request)
 
 on:
-  push:
   pull_request:
+    branches:
+      - main
 
 jobs:
-  build-and-verify:
-    name: Instalar, Lint y Compilar (React + Vite)
+  quality-and-build:
+    name: Lint, Build y Artefacto (React + Vite)
     runs-on: ubuntu-latest
 
     steps:
-      - name: Descargar código del repositorio
+      - name: Descargar el código fuente
         uses: actions/checkout@v4
 
       - name: Instalar pnpm
@@ -27,8 +28,15 @@ jobs:
       - name: Instalar dependencias
         run: pnpm install --frozen-lockfile
 
-      - name: Verificar linter (oxlint)
+      - name: Validar calidad de código (Linter)
         run: pnpm run lint
 
-      - name: Compilar TypeScript y bundle Vite
+      - name: Compilar aplicación React
         run: pnpm run build
+
+      - name: Almacenar carpeta dist como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-atypico-studio
+          path: dist/
+          retention-days: 7
