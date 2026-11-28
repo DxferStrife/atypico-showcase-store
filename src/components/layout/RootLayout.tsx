@@ -72,7 +72,7 @@ export function RootLayout() {
       {/* Barra de anuncio superior de marca */}
       <div className="aty-announcement">
         <div className="aty-container aty-announcement__inner">
-          <span>DROP 03 // HEAVYWEIGHT SERIES</span>
+          <span>DROP 03 // EDICIÓN LIMITADA</span>
           <span>ENVÍO ESTÁNDAR DESDE $3.50 · DESPACHO EN 24–48H</span>
         </div>
       </div>
